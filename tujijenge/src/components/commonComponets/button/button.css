@@ -1,0 +1,21 @@
+.share-button{
+    padding: 10px 20px;
+    border:none;
+    border-radius: 3px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.5s;
+}
+.primary{
+    background-color: #084236;
+    color: white;
+}
+.primary:hover:not(:disabled) {
+  background-color: #DADFB1;
+}
+.secondary{
+      background-color: #DADFB1;
+}
+.secondary:hover.btn--primary:hover:not(:disabled){
+    background-color: 084236;
+}
