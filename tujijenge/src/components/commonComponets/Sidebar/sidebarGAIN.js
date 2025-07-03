@@ -1,43 +1,37 @@
 
-import React, { useState } from 'react';
 import './sidebar.css' ;
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { Link } from 'react-router-dom';
-// import App from './notification';
+import { faCalendar, faHouse, faBars,  faTimes } from "@fortawesome/free-solid-svg-icons";
+// import { Link } from 'react-router-dom';
 
 
 
 
-export default function Sidebar() {
-    const [isOpen , setIsOpen] = useState(false);
 
-const toggleSidebar = () =>{
-    setIsOpen(!isOpen);
-}
-const closeSidebar = () =>{
-    setIsOpen(false);
+export default function Sidebar({isCollapsed, toggleSidebar}) {
 
-}
-    return (
+
+   return (
         <>
-        <button className ='toggle-button' onClick={toggleSidebar}>
-        <FontAwesomeIcon icon={faBars} />  
-        </button>
+        <div className ={isCollapsed ? "sidebar-collapsed" : "sidebar-expanded"}>
+            <button onClick={toggleSidebar}>
+            { isCollapsed ? <FontAwesomeIcon className='OpenMenu' icon={ faBars }/>: <FontAwesomeIcon className='CloseMenu' icon={ faTimes }/>}  
+            </button>
+        
 
-        <div className={`sidebar ${isOpen? 'open' : ''}`}>
-        <button className ='close-button' onClick={closeSidebar}>
-        <FontAwesomeIcon icon={faTimes} />  
-        </button>
+        <div className='menu'>
+            <div className='menu-icon'>
+            <FontAwesomeIcon className='Home' icon={ faHouse }/>
+                {!isCollapsed && <span>Dashboard</span>}
+            </div>
+            <div className='menu-icon'>
+            <FontAwesomeIcon className='Calendar' icon={ faCalendar }/>
+                {!isCollapsed && <span>Calendar</span>}
+            </div>
+        </div>
+     </div>
+       
 
-            <h2>Sidebar</h2>
-            <div>
-          <h1>Dashboard</h1>
-          <Link to="/calendar">Calendar</Link>
-        </div>
-    
-        </div>
         </>
     )
 }
