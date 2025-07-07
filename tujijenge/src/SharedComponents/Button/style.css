@@ -1,55 +1,70 @@
+:root {
+    --tujijenge-light-green: #C2CA83;
+    --tujijenge-green: #084236;
+    --tujijenge-white: #FFFFFF;
+}
 
 .share-button {
-    padding: 20px 80px;
+    font-family: 'Nunito', sans-serif;
+    padding: 15px 64px;
     border: none;
-    border-radius: 7px;
-    font-size: 18px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.5s;
-    margin: 10vh;
+    transition: all 0.3s ease;
+    margin: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .primary {
-    background-color: #084236;
-    color: white;
+    background-color: var(--tujijenge-green);
+    color: var(--tujijenge-white);
+    min-width: 12vw;
+    font-size: 23px;
+
 }
 
 .primary:hover {
-    color: #084236;
-    background-color: #DADFB1;
+    background-color: var(--tujijenge-light-green);
+    color: var(--tujijenge-green);
 }
 
 .secondary {
-    border: 1px solid #084236;
-    color: #084236;
+    border: 1px solid var(--tujijenge-green);
+    background-color: transparent;
+    color: var(--tujijenge-green);
+    font-size: 23px;
+
 }
 
 .secondary:hover {
-    background-color: #084236;
-    color: white;
+    background-color: var(--tujijenge-green);
+    color: var(--tujijenge-white);
 }
 
 .tertiary {
-    border-radius: 8px;
-    padding: 5px 30px;
-    background-color: #084236;
-    color: white;
+    background-color: var(--tujijenge-light-green);
+    color: var(--tujijenge-green);
+    padding: 8px 16px;
 }
 
 .tertiary:hover {
-    color: #084236;
-    background-color: #DADFB1;
+    background-color: var(--tujijenge-green);
+    color: var(--tujijenge-white);
 }
 
-.quaternary{
-    padding: 5px 15px;
-    font-size: 16px;
-    color: #084236;
-    background-color: #DADFB1;
+.quaternary {
+    background-color: var(--tujijenge-white);
+    color: var(--tujijenge-green);
+    border: 1px solid var(--tujijenge-light-green);
+    padding: 8px 16px;
+    font-size: 14px;
 }
 
-
-.quaternary:hover{
-    background-color: #084236;
-    color: white;
+.quaternary:hover {
+    background-color: var(--tujijenge-green);
+    color: var(--tujijenge-white);
 }

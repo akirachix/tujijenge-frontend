@@ -3,47 +3,26 @@ import Button from './SharedComponents/Button';
 import Input from './SharedComponents/Input';
 import React, { useState } from "react";
 
-
 function App() {
-  const [email, setEmail] = useState("");
+  const handleClick = (action) => {
+    console.log('button clicked!')};
+
   return (
-    <div className="App">
-
-       <Button
-        label="Save"
-        onClick={() => alert('Saved!')}
-        type="submit"
-        disabled={false}
-      />
-
-      <Button
-        label="Cancel!"
-        variant="secondary"
-        onClick={() => alert('Canceled!')}
-      /> 
-      <Button
-        label="Cancel!"
-        variant="quaternary"
-        onClick={() => alert('Canceled!')}
-      />
-
-
-    <Input
-        id="email"
-        label="Email:"
-        type="email"
-        placeholder="Enter your email"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-      /> 
-
-
-      
-    </div>
+    <div >
+      <h1 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '16px' }}>Tujijenge Buttons and input field</h1>
+      <Button label="Login" variant="primary" onClick={() => handleClick('Login')} />
+      <Button label="Join Community" variant="secondary" onClick={() => handleClick('Join')} />
+      <Button label="Submit" variant="tertiary" onClick={() => handleClick('Submit')} />
+      <Button label="Cancel" variant="quaternary" onClick={() => handleClick('Cancel')} />
+      <Input 
+        label={"Email:"}
+    placeholder ={"email"}
+    />  
+    
+    
+       </div>
   );
 }
 
-
-
-
 export default App;
+
