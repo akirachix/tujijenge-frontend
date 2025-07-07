@@ -1,7 +1,7 @@
 import React, { useState,useRef,useEffect } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
-import './notification.css';
+import './index.css';
 
 
 
