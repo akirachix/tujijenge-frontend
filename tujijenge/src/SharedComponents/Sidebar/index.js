@@ -1,13 +1,20 @@
 
-import './sidebar.css' ;
+import './index.css' ;
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar, faHouse, faBars, faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { useState, useRef, useEffect } from "react";
 import { Link } from 'react-router-dom';
+import logo from '../../Images/logo.png';
 
-export default function Sidebar({ isCollapsed, toggleSidebar }) {
+export default function Sidebar({isCollapsed, toggleSidebar, setIsCollapsed}) {
+  // const [isCollapsed, setIsCollapsed] = useState(true);
   const [active, setActive] = useState("dashboard");
   const sidebarRef = useRef(null);
+  // const toggleSidebar = () =>{
+  //   setIsCollapsed(!isCollapsed);
+  // }
+
+ 
 
   useEffect(() => {
     if (!isCollapsed) {
@@ -35,7 +42,7 @@ export default function Sidebar({ isCollapsed, toggleSidebar }) {
         {!isCollapsed && (
           <div className="sidebar-logo-container">
             <img
-              src='./../assets/logo.png'
+              src= {logo}
               alt="Logo"
               className="sidebar-logo"
             />
