@@ -68,3 +68,22 @@
     background-color: var(--tujijenge-green);
     color: var(--tujijenge-white);
 }
+
+
+@media (max-width: 1400px){
+    .share-button{
+        padding: 15px 64px;
+        font-size: 17px;
+
+    }
+   
+    .tertiary{
+
+        padding: 7px 15px;
+        font-size: 13px;
+    }
+    .quaternary{
+        padding: 7px 15px;
+        font-size: 13px;    }
+    
+}
