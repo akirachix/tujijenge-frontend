@@ -1,70 +1,47 @@
-
-import './index.css' ;
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendar, faHouse, faBars, faPowerOff } from "@fortawesome/free-solid-svg-icons";
-import { useState, useRef, useEffect } from "react";
+// src/SharedComponents/Sidebar/index.js
+import './index.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendar, faHouse, faBars, faPowerOff, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../Images/logo.png';
 
-export default function Sidebar({isCollapsed, toggleSidebar, setIsCollapsed}) {
-  // const [isCollapsed, setIsCollapsed] = useState(true);
-  const [active, setActive] = useState("dashboard");
-  const sidebarRef = useRef(null);
-  // const toggleSidebar = () =>{
-  //   setIsCollapsed(!isCollapsed);
-  // }
-
- 
-
-  useEffect(() => {
-    if (!isCollapsed) {
-      const handleClickOutside = (event) => {
-        if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
-          toggleSidebar();
-        }
-      };
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => document.removeEventListener("mousedown", handleClickOutside);
-    }
-  }, [isCollapsed, toggleSidebar]);
+export default function Sidebar({ isCollapsed, toggleSidebar }) {
+  const [active, setActive] = useState('dashboard');
 
   return (
     <>
-      {isCollapsed && (
+    
         <button className="sidebar-toggle-btn" onClick={toggleSidebar}>
-          <FontAwesomeIcon icon={faBars} />
+               {isCollapsed ? (
+        <FontAwesomeIcon icon={faBars} />
+        ) : (
+          <FontAwesomeIcon icon={faTimes} className='x'/>
+        )}
+          
         </button>
-      )}
-      <div
-        ref={sidebarRef}
-        className={isCollapsed ? "sidebar-collapsed" : "sidebar-expanded"}
-      >
+  
+      <div className={isCollapsed ? 'sidebar-collapsed' : 'sidebar-expanded'}>
         {!isCollapsed && (
           <div className="sidebar-logo-container">
-            <img
-              src= {logo}
-              alt="Logo"
-              className="sidebar-logo"
-            />
+            <img src={logo} alt="Logo" className="sidebar-logo" />
           </div>
         )}
-        <div className='menu'>
+        <div className="menu">
           <div
-            className={`menu-icon${active === "dashboard" ? " active" : ""}`}
-            onClick={() => setActive("dashboard")}
+            className={`menu-icon${active === 'dashboard' ? ' active' : ''}`}
+            onClick={() => setActive('dashboard')}
           >
-          
-            <FontAwesomeIcon className='Home' icon={faHouse} />
+            <FontAwesomeIcon className="Home" icon={faHouse} />
             {!isCollapsed && <span>Dashboard</span>}
-           
           </div>
           <div
-            className={`menu-icon${active === "calendar" ? " active" : ""}`}
-            onClick={() => setActive("calendar")}
+            className={`menu-icon${active === 'calendar' ? ' active' : ''}`}
+            onClick={() => setActive('calendar')}
           >
             <Link to="/calendar">
-            <FontAwesomeIcon className='Calendar' icon={faCalendar} />
-            {!isCollapsed && <span>Calendar</span>}
+              <FontAwesomeIcon className="Calendar" icon={faCalendar} />
+              {!isCollapsed && <span>Calendar</span>}
             </Link>
           </div>
         </div>
@@ -76,4 +53,3 @@ export default function Sidebar({isCollapsed, toggleSidebar, setIsCollapsed}) {
     </>
   );
 }
-
