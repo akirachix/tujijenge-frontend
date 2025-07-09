@@ -20,9 +20,9 @@ describe('Button Labe;', () => {
   });
 
   test('button uses default variant class', () => {
-    render(<Button label="Sign in" variant="secondary" onClick={() => {}} />);
+    render(<Button label="Sign in" onClick={() => {}} />);
     const button = screen.getByRole('button');
-    expect(button).toHaveClass('secondary');
+    expect(button).toHaveClass('primary');
   });
 
   test('onClick is called when button is clicked', () => {
@@ -33,11 +33,7 @@ describe('Button Labe;', () => {
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 
-  test('button has correct role', () => {
-    render(<Button label="Sign in" onClick={() => {}} />);
-    const button = screen.getByRole('button');
-    expect(button).toBeInTheDocument();
-  });
+
 
   test('button has share-button class', () => {
     render(<Button label="Sign in" onClick={() => {}} />);
