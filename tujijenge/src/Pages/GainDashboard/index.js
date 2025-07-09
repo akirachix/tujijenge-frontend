@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import ImpactChart from './components/ImpactChart/index';
+import ImpactChart from './components/ImpactChart';
 import Sidebar from '../../SharedComponents/Sidebar/index';
 import Notification from '../../SharedComponents/Notifications/index';
-import TrainingTable from './components/TrainingTable/index';
+import TrainingTable from './components/TrainingTable';
 import './index.css'
 
 

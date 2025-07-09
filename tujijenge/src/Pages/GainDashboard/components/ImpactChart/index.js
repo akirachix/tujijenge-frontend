@@ -7,6 +7,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import CalendarView from '../CalendarView';
 import { useNavigate } from 'react-router-dom';
+import './impactChart.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserGroup } from '@fortawesome/free-solid-svg-icons';
 ChartJS.register(ArcElement, Tooltip, Legend);

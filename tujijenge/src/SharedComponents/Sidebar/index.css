@@ -3,7 +3,6 @@
     top: 0;
     left: 0;
     width: 15vw;
-    
     min-width: 180px;
     max-width: 240px;
     height: 100vh;
@@ -57,7 +56,6 @@
    .sidebar-logo {
     width: 150px;
     height: auto;
-    margin-top: 5vh;
     transition: width 0.3s;
    }
    .collapsed-logo {
@@ -103,7 +101,7 @@
    }
    .sidebar-logout {
     margin-top: auto;
-    margin-bottom: 3.5rem;
+    margin-bottom: 2.5rem;
     display: flex;
     align-items: center;
     color: #b8b8b8;
@@ -125,9 +123,6 @@
    }
    Link{
     text-decoration: none;
-   }
-   .x{
-    margin-left: 22vh;
    }
    
    @media only screen and (max-width: 1280px) {
