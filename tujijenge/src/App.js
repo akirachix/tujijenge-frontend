@@ -6,8 +6,7 @@ function App() {
 
   return (
     <div >
-      <h1>Tujijenge Buttons and input field</h1>
-       </div>
+    </div>
   );
 }
 
