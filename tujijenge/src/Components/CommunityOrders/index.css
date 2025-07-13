@@ -29,7 +29,7 @@ h1{
     font-size: 48px;
 }
 .group{
-    background-color: #E6F4EA;
+    background-color: #f1f5d4;
     padding:30px ;
     margin:10px 0;
     display:flex;
@@ -37,8 +37,8 @@ h1{
     justify-content: space-between;
     align-items: center;
 }
-.view-btn{
-    background-color:#A5D6A7;
+/* .view-btn{
+    background-color: black;;
     border:none;
     border-radius: 5%;
     padding:15px;
@@ -46,12 +46,12 @@ h1{
     font-weight: bolder;
     cursor: pointer;
     color:#084236;
-}
+} */
 .main{
     max-width: 100vw;
 }
 .mainContainer{
-    margin:2% 5%;
+    margin:0% 5%;
     max-width: 90vw;
     justify-content: center;
 }

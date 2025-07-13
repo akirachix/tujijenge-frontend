@@ -6,7 +6,7 @@
 }
 
 .table-content{
-  margin:2% 5%;
+  margin:0% 5%;
 }
 
 .header{
@@ -25,11 +25,18 @@
   cursor: pointer;
 
 }
-
+.odd-row{
+    background-color: #DADFB1;
+    height: 5vh;
+}
+.even-row{
+height: 5vh;
+}
 .group-order-title {
-  font-size: 48px;
+  font-size: 40px;
   color: #084236;
   margin-bottom: 3%;
+
 }
 .icons {
   display: flex;
@@ -64,13 +71,17 @@ padding:18px;
 text-align: left;
 word-wrap: break-word;
 }
+
+
  .group-order-table th{
   background-color: #f3f3f3;
   color:#C0C882;
-  font-size: 2rem;
+  font-size: 1.5rem;
+    border-bottom: 2px solid #ddd;
  }
  .group-order-table td{
-  font-size: 1.5rem;
+  font-size: 1rem;
+   border-bottom: 1px solid #eee;
  }
 
 .status {

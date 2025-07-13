@@ -33,7 +33,7 @@ function GroupOrders() {
                         </thead>
                         <tbody>
                             {(groupOrders.length?groupOrders:groupOrdersData).map((order, index) => (
-                                <tr key={index}>
+                                <tr key={index} className={index % 2 === 0 ? "even-row" : "odd-row"}>
                                     <td>{order.id}</td>
                                     <td>{order.customer}</td>
                                     <td>{order.amount}</td>

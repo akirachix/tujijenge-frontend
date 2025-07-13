@@ -21,7 +21,7 @@ const CommunityOrders = () => {
                     <div className='main'>
                         <div className='header'>
                             <h1>Community Orders</h1>
-                            <FaHistory className='icon' 
+                            <FaHistory className='icon' onClick={()=>navigate('/history')}
                 
                             />
                         </div>
