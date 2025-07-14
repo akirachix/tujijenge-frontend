@@ -74,7 +74,7 @@ const TrainingCalendar = () => {
 
     return (
       <>
-        <Sidebar />
+        {/* <Sidebar /> */}
         <div className="calendar-header">
           <h1>Training sessions schedules</h1>
           <div className="header-controls">

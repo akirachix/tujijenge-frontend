@@ -28,10 +28,10 @@ export default function AppLayout() {
 
   return (
     <div style={{ display: 'flex' }}>
-      <Sidebar
+      {/* <Sidebar
         isCollapsed={isCollapsed}
         toggleSidebar={() => setIsCollapsed(!isCollapsed)}
-      />
+      /> */}
       <div>
 
         <div className={`main ${isCollapsed ? 'main-collapsed' : 'main-expanded'}`}>
