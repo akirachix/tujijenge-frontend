@@ -1,14 +1,14 @@
-// src/SharedComponents/Sidebar/index.js
+
 import './index.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faHouse, faBars, faPowerOff, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../Images/logo.png';
+
 
 export default function Sidebar({ isCollapsed, toggleSidebar }) {
   const [active, setActive] = useState('dashboard');
-
+  
   return (
     <>
     
@@ -24,16 +24,18 @@ export default function Sidebar({ isCollapsed, toggleSidebar }) {
       <div className={isCollapsed ? 'sidebar-collapsed' : 'sidebar-expanded'}>
         {!isCollapsed && (
           <div className="sidebar-logo-container">
-            <img src={logo} alt="Logo" className="sidebar-logo" />
+            <img src={`${process.env.PUBLIC_URL}/Images/logo.png`} alt="Logo" className="sidebar-logo" />
           </div>
         )}
         <div className="menu">
           <div
             className={`menu-icon${active === 'dashboard' ? ' active' : ''}`}
-            onClick={() => setActive('dashboard')}
+            onClick={() => setActive('dashboard', 'calendar')}
           >
-            <FontAwesomeIcon className="Home" icon={faHouse} />
+           <Link to="/"> 
+            <FontAwesomeIcon className="Calendar" icon={faHouse} />
             {!isCollapsed && <span>Dashboard</span>}
+          </Link> 
           </div>
           <div
             className={`menu-icon${active === 'calendar' ? ' active' : ''}`}

@@ -4,8 +4,8 @@
   }
   .dropdown{
      position: absolute;
-     text-align: right;
-     right: 0;
+     text-align: left;
+     right: 5vh;
      top: 15vh;
      width: 20vw;
      height: auto;
@@ -17,8 +17,8 @@
   }
   .notification-badge{
     position: absolute;
-    top: 10vh;
-    right: -5px;
+    top: 7vh;
+    right: 6vh;
     background: red;
     color: white;
     border-radius: 50%;
@@ -34,7 +34,8 @@
      cursor: pointer;
      font-size: 24px;
      /* transform: translate(-30em); */
-     top: 10vh;
+     top: 7vh;
+     right: 7vh;
      position: relative;
      /* border: solid; */
    

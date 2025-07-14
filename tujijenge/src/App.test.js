@@ -19,6 +19,14 @@ describe('App Routing', () => {
     renderWithPath('/group-orders');
     expect(screen.getByText(/Group 1 Orders/i)).toBeInTheDocument();
   });
+  it('renders DashboardPage at "/"', () => {
+    renderWithPath('/');
+    expect(screen.getByText(/dashboard/i)).toBeInTheDocument();
+  });
+  it('renders CalendarPage at "/calendar"', () => {
+    renderWithPath('/calendar');
+    expect(screen.getByText(/Calendar/i)).toBeInTheDocument();
+  });
 });
 
 

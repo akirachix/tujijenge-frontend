@@ -15,6 +15,7 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
+  
    }
    .sidebar-collapsed {
     position: fixed;
@@ -56,6 +57,8 @@
    .sidebar-logo {
     width: 150px;
     height: auto;
+    margin-top: 8vh;
+    margin-bottom: -5vh;
     transition: width 0.3s;
    }
    .collapsed-logo {
@@ -124,7 +127,10 @@
    Link{
     text-decoration: none;
    }
-   
+   .x{
+   margin-left: 22vh; 
+}
+
    @media only screen and (max-width: 1280px) {
     .sidebar-expanded {
         position: fixed;
