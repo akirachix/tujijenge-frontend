@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './styles.css';
-import { useEvents } from '../../../../context/useEvents'; 
+import { useEvents } from '../../../context/useEvents'; 
 import { parseISO, isSameDay } from 'date-fns'; 
 
-export default function MyCalendar() {
+export default function EventCalendar() {
   const [currentDisplayDate, setCurrentDisplayDate] = useState(new Date()); 
 
  

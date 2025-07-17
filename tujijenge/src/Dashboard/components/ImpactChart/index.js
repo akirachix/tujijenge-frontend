@@ -5,7 +5,7 @@ import React from 'react';
 import './styles.css';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
-import CalendarView from '../CalendarView';
+import CalendarView from '../EventCalendar';
 import { useNavigate } from 'react-router-dom';
 import './styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -60,14 +60,14 @@ export default function ImpactChart() {
       <div className="cards">
         <div className="card">
           <FontAwesomeIcon className='group' icon={faUserGroup}/>
-          <p>Communities: 15 <br/><br/>
-          Number of communities trained: 10</p>
+          <p style={{fontSize:14, fontWeight:600}}>Communities:<span style={{fontWeight:400}}> 15</span> <br/><br/>
+          Number of communities trained: <span style={{fontWeight:400}}> 10</span></p>
 
         </div>
         <div className="card">
         <FontAwesomeIcon className='group' icon={faUserGroup}/>
-         <p>Mama Mboga: 300<br/><br/>
-          Number of mama mboga trained: 200</p> 
+         <p style={{fontSize:15, fontWeight:600}}>Mama Mboga:<span style={{fontWeight:400}}> 300</span><br/><br/>
+          Number of mama mboga trained:<span style={{fontWeight:400}}> 200</span></p> 
           </div>
       </div>
       <div className="impact-chart">
