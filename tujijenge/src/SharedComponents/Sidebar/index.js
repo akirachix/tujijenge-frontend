@@ -1,26 +1,20 @@
 
 import './index.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendar, faHouse, faBars, faPowerOff, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar, faHouse, faPowerOff} from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 
-export default function Sidebar({ isCollapsed, toggleSidebar }) {
+export default function Sidebar() {
   const [active, setActive] = useState('dashboard');
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  
+  
+
   
   return (
     <>
-    
-        <button className="sidebar-toggle-btn" onClick={toggleSidebar}>
-               {isCollapsed ? (
-        <FontAwesomeIcon icon={faBars} />
-        ) : (
-          <FontAwesomeIcon icon={faTimes} className='x'/>
-        )}
-          
-        </button>
-  
       <div className={isCollapsed ? 'sidebar-collapsed' : 'sidebar-expanded'}>
         {!isCollapsed && (
           <div className="sidebar-logo-container">
@@ -28,24 +22,32 @@ export default function Sidebar({ isCollapsed, toggleSidebar }) {
           </div>
         )}
         <div className="menu">
+        <Link to="/"
+           style={{textDecoration:'none'}}
+           > 
           <div
             className={`menu-icon${active === 'dashboard' ? ' active' : ''}`}
             onClick={() => setActive('dashboard', 'calendar')}
           >
-           <Link to="/"> 
+         
             <FontAwesomeIcon className="Calendar" icon={faHouse} />
             {!isCollapsed && <span>Dashboard</span>}
-          </Link> 
+       
           </div>
+          </Link> 
+
+          <Link to="/TrainingCalendar"
+            style={{textDecoration:'none'}}
+            >
           <div
             className={`menu-icon${active === 'calendar' ? ' active' : ''}`}
             onClick={() => setActive('calendar')}
           >
-            <Link to="/calendar">
               <FontAwesomeIcon className="Calendar" icon={faCalendar} />
               {!isCollapsed && <span>Calendar</span>}
-            </Link>
+            
           </div>
+          </Link>
         </div>
         <div className="sidebar-logout">
           <FontAwesomeIcon icon={faPowerOff} />

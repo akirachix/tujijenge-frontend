@@ -94,10 +94,7 @@
    .menu-icon.active span {
     color: #084236;
    }
-   .menu-icon:hover {
-    color: #b4bd76;
-    background: rgba(255,255,255,0.07);
-   }
+  
    .sidebar-collapsed .menu-icon span,
    .sidebar-collapsed .sidebar-logout span {
     display: none;
@@ -119,7 +116,7 @@
     color: #b4bd76;
    }
    .Calendar{
-    /* position: absolute; */
+    
     color: white;
     margin-right:1vw ;
     text-decoration: none;
