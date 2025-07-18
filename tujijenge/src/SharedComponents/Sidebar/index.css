@@ -17,24 +17,7 @@
     align-items: stretch;
   
    }
-   .sidebar-collapsed {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 4vw;
-    min-width: 55px;
-    max-width: 70px;
-    height: 100vh;
-    background-color: #084236;
-    color: #fff;
-    padding: 2rem 0.5rem 0 0.5rem;
-    transition: width 0.3s;
-    box-shadow: rgb(105, 101, 101) 2px 2px 6px;
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-   }
+
    .sidebar-toggle-btn {
     position: fixed;
     top: 1.5rem;
