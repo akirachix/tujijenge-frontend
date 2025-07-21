@@ -8,19 +8,19 @@ import { Link } from 'react-router-dom';
 
 export default function Sidebar() {
   const [active, setActive] = useState('dashboard');
-  const [isCollapsed, setIsCollapsed] = useState(false);
+ 
   
   
 
   
   return (
     <>
-      <div className={isCollapsed ? 'sidebar-collapsed' : 'sidebar-expanded'}>
-        {!isCollapsed && (
+      <div className='sidebar-expanded'>
+
           <div className="sidebar-logo-container">
             <img src={`${process.env.PUBLIC_URL}/Images/logo.png`} alt="Logo" className="sidebar-logo" />
           </div>
-        )}
+        
         <div className="menu">
         <Link to="/"
            style={{textDecoration:'none'}}
@@ -31,12 +31,12 @@ export default function Sidebar() {
           >
          
             <FontAwesomeIcon className="Calendar" icon={faHouse} />
-            {!isCollapsed && <span>Dashboard</span>}
+            <span>Dashboard</span>
        
           </div>
           </Link> 
 
-          <Link to="/TrainingCalendar"
+          <Link to="/training-calendar"
             style={{textDecoration:'none'}}
             >
           <div
@@ -44,14 +44,14 @@ export default function Sidebar() {
             onClick={() => setActive('calendar')}
           >
               <FontAwesomeIcon className="Calendar" icon={faCalendar} />
-              {!isCollapsed && <span>Calendar</span>}
+              <span>Calendar</span>
             
           </div>
           </Link>
         </div>
         <div className="sidebar-logout">
           <FontAwesomeIcon icon={faPowerOff} />
-          {!isCollapsed && <span>Logout</span>}
+          <span>Logout</span>
         </div>
       </div>
     </>
