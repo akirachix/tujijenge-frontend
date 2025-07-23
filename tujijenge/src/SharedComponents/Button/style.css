@@ -72,8 +72,8 @@
 
 @media (max-width: 1400px){
     .share-button{
-        padding: 15px 64px;
-        font-size: 17px;
+        padding: 10px 0px;
+        font-size: 15px;
 
     }
    
@@ -81,6 +81,25 @@
 
         padding: 7px 15px;
         font-size: 13px;
+    }
+    .quaternary{
+        padding: 7px 15px;
+        font-size: 13px;    }
+    
+}
+
+
+@media (max-width: 999px){
+    .share-button{
+        padding: 14px 50px;
+        font-size: 18px;
+
+    }
+   
+    .tertiary{
+
+        padding: 6px 12px;
+        font-size: 11px;
     }
     .quaternary{
         padding: 7px 15px;
