@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import OrderRow from './components/OrderRow';
-import { useNavigate } from 'react-router-dom';
 import SearchBar from '../SharedComponents/SearchBar';
-import { FaRegBell } from 'react-icons/fa';
 import './index.css';
 import '../SharedComponents/Orders/index.css';
 import { useFetchOrders } from '../hooks/useFetchGroupOrders'; 
 
 const RecentOrders = () => {
-  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [page, setPage] = useState(1);
   const itemsPerPage = 10;

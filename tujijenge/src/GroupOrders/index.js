@@ -100,7 +100,6 @@ function GroupOrders() {
                               <p><strong>Products:</strong></p>
                               <ul>
                                 {order.products.map((product, idx) => {
-                                  // Robust splitting product and quantity
                                   const parts = product.split('x');
                                   const item = parts[0]?.trim() || 'Unknown Product';
                                   const qty = parts[1]?.trim();

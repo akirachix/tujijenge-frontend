@@ -1,22 +1,17 @@
-
-
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import './index.css';
-
 
 function OrderRow({ order, className, onMarkDelivered }) {
   const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
 
-
   const toggleExpand = () => {
-    setExpanded(prev => !prev);
+    setExpanded((prev) => !prev);
     console.log('Toggled expanded:', !expanded);
   };
-
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -31,17 +26,14 @@ function OrderRow({ order, className, onMarkDelivered }) {
     };
   }, []);
 
-
   const totalItems = order.products?.reduce((total, product) => {
     const match = product.match(/x(\d+)/) || [null, 1];
     return total + parseInt(match[1] || 1);
   }, 0) || 0;
 
-
   console.log('OrderRow products:', order.products);
   console.log('OrderRow expanded:', expanded);
   console.log('OrderRow communityId:', order.communityId);
-
 
   return (
     <div className={`order-row-container ${className}`} ref={dropdownRef}>
@@ -67,10 +59,7 @@ function OrderRow({ order, className, onMarkDelivered }) {
         </div>
         <div className="cell status-col" data-label="Status:">
           {order.status === 'pending' ? (
-            <button
-              className="mark-btn"
-              onClick={() => onMarkDelivered(order.id)}
-            >
+            <button className="mark-btn" onClick={() => onMarkDelivered(order.id)}>
               Mark Delivered
             </button>
           ) : (
@@ -79,27 +68,29 @@ function OrderRow({ order, className, onMarkDelivered }) {
         </div>
       </div>
       {expanded && (
-        <div className="order-details-dropdown" data-testid="order-details-dropdown">
-          <ul className="order-list">
-            {order.products?.length ? (
-              order.products.map((product, idx) => {
-                const [item, qty] = product.split(' x');
-                const quantity = parseInt(qty) || 1;
-                return Array.from({ length: quantity }, (_, i) => (
-                  <li key={`${idx}-${i}`} className="order-item">
-                    {item} {quantity > 1 ? `(x${quantity})` : ''}
-                  </li>
-                ));
-              })
-            ) : (
-              <li className="order-item no-orders">No items ordered</li>
-            )}
-          </ul>
+        <div className="product-details-row" data-testid="order-details-dropdown">
+          <div className="products-details">
+            <p><strong>Products:</strong></p>
+            <ul className="order-list">
+              {order.products?.length ? (
+                order.products.map((product, idx) => {
+                  const [item, qty] = product.split(' x');
+                  const quantity = parseInt(qty) || 1;
+                  return Array.from({ length: quantity }, (_, i) => (
+                    <li key={`${idx}-${i}`} className="order-item">
+                      {item} {quantity > 1 ? `(x${quantity})` : ''}
+                    </li>
+                  ));
+                })
+              ) : (
+                <li className="order-item no-orders">No items ordered</li>
+              )}
+            </ul>
+          </div>
         </div>
       )}
     </div>
   );
 }
-
 
 export default OrderRow;
