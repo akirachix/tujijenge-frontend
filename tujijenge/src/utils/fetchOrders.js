@@ -49,7 +49,6 @@ export const fetchOrders = async (
         id: group.orderIds[0],
         mamamboga: group.mamamboga, 
         community: group.community?.name || 'Unknown Community',
-        // location: group.location,
         total: `${group.total_price.toFixed(2)} KSH`,
         date: group.order_date
           ? new Date(group.order_date).toLocaleDateString('en-US', {

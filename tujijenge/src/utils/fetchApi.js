@@ -1,10 +1,8 @@
 const BASE_URL = process.env.REACT_APP_API_URL;
 const TOKEN_STORAGE_KEY = 'authTokenKey';
-const AUTH_TOKEN = process.env.REACT_APP_AUTH_TOKEN;
 
-if (!localStorage.getItem(TOKEN_STORAGE_KEY)) {
-  localStorage.setItem(TOKEN_STORAGE_KEY, AUTH_TOKEN);
-}
+
+localStorage.getItem(TOKEN_STORAGE_KEY)
 
 export const fetchWithAuth = async (url, token) => {
   const response = await fetch(url, {
