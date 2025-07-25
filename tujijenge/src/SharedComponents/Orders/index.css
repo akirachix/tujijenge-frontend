@@ -14,7 +14,6 @@
   --button-hover: #214223;
 }
 
-/* Common button styles */
 .view-btn, .mark-btn {
   background-color: var(--button-bg);
   color: var(--primary-color);

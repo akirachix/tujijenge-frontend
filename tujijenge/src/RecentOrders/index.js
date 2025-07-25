@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import OrderRow from '../OrderRow';
+import OrderRow from './components/OrderRow';
 import { useNavigate } from 'react-router-dom';
 import SearchBar from '../SharedComponents/SearchBar';
 import { FaRegBell } from 'react-icons/fa';

@@ -98,7 +98,7 @@ details[open] .expand-icon {
   margin-left: 8px;
 }
 
-/* Mobile view for product details */
+
 @media (max-width: 767px) {
   .product-details-row td {
     padding: 10px;
