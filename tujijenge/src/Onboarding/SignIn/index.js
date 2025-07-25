@@ -55,7 +55,7 @@ function SignIn() {
             />
             {errors.email && <p id="email-error" className="error-message">{errors.email}</p>}
           </div>
-          <div className="input">
+          <div className="input inputpass">
             <Input
               id="password"
               label="Password: "
@@ -71,7 +71,6 @@ function SignIn() {
           <div className="signinButton">
             <Button label="login" variant="primary" disabled={loading} type="submit" />
           </div>
-          <p className="forgot-password"></p>
         </form>
       </div>
       <div className="right-panel">

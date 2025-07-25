@@ -8,7 +8,6 @@ import Orders from './Onboarding/Orders/index.js';
 import Verification from './Onboarding/Verification/index.js';
 import SignIn from './Onboarding/SignIn/index.js';
 import Welcome from './Onboarding/Home/index.js';
-// import ForgotPassword from './Onboarding/ForgotPassword/index.js'
 function App() {
   console.log(`${process.env.REACT_APP_API_URL}/users/login/`); // Should print http://127.0.0.1:8000
 
@@ -23,7 +22,6 @@ function App() {
         <Route path="/verification" element={<Verification />} />
         <Route path="/home" element={<Welcome />} />
         <Route path="/signin" element={<SignIn />} />
-        {/* <Route path = "/forgotpassword" element = {<ForgotPassword/>}/> */}
 
 
 

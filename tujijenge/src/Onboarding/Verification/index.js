@@ -7,7 +7,6 @@ function Verification() {
   const navigate = useNavigate();
 
   return (
-
     <div className="welcome-wrapper">
       <div className="left-panel">
         <span className="skip-link" onClick={() => navigate("/home")}>Skip</span>
@@ -17,10 +16,10 @@ function Verification() {
         <h1 className="welcome">Verify Mama Mbogas</h1>
         <p className="subtitle">Provide verification for Mama Mbogas who have been trained.</p>
         <div className="pagination-dots">
-          <span className="dot "></span>
-          <span className="dot"></span>
-          <span className="dot"></span>
-          <span className="dot active"></span>
+          <span className="dot" data-testid="pagination-dot"></span>
+          <span className="dot" data-testid="pagination-dot"></span>
+          <span className="dot" data-testid="pagination-dot"></span>
+          <span className="dot active" data-testid="pagination-dot-active"></span>
         </div>
         <div className="button">
           <Button
@@ -34,9 +33,7 @@ function Verification() {
         <img src="assets/spinach.png" alt="Spinach" className="right-image" />
       </div>
     </div>
-
   );
 }
-
 
 export default Verification;

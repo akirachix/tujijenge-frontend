@@ -1,97 +1,102 @@
-// import React from "react";
-// import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-// import { MemoryRouter, Route, Routes } from "react-router-dom";
-// import SignIn from "./SignIn";
+import React from "react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
+import SignIn from ".";
 
-// const mockLogin = jest.fn();
-// const mockUseLogin = jest.fn(() => ({
-//   login: mockLogin,
-//   error: null,
-//   loading: false,
-// }));
-// jest.mock("../../hooks/useLogin", () => ({
-//   useLogin: () => mockUseLogin(),
-// }));
+const mockLogin = jest.fn();
 
-// describe("SignIn component", () => {
-//   beforeEach(() => {
-//     jest.clearAllMocks();
-//   });
+jest.mock("../../hooks/useLogin", () => ({
+  useLogin: jest.fn(),
+}));
 
-//   const renderWithRouter = (initialEntries = ["/signin"]) =>
-//     render(
-//       <MemoryRouter initialEntries={initialEntries}>
-//         <Routes>
-//           <Route path="/signin" element={<SignIn />} />
-//         </Routes>
-//       </MemoryRouter>
-//     );
+describe("SignIn component", () => {
+  beforeAll(() => {
+    // Suppress React Router v7 warnings
+    jest.spyOn(console, "warn").mockImplementation((message) => {
+      if (
+        message.includes("v7_startTransition") ||
+        message.includes("v7_relativeSplatPath")
+      ) {
+        return;
+      }
+      console.warn(message);
+    });
+  });
 
-//   it("renders correctly with role from URL param", () => {
-//     renderWithRouter(["/signin?role=trainer"]);
+  afterAll(() => {
+    jest.restoreAllMocks();
+  });
 
-//     expect(screen.getByText(/sign in as Trainer/i)).toBeInTheDocument();
-//     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
-//     expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
-//     expect(screen.getByRole("button", { name: /login/i })).toBeInTheDocument();
-//   });
+  beforeEach(() => {
+    jest.clearAllMocks();
+    jest.mocked(require("../../hooks/useLogin").useLogin).mockReturnValue({
+      login: mockLogin,
+      error: null,
+      loading: false,
+    });
+  });
 
-//   it("defaults to 'User' role when no role param is provided", () => {
-//     renderWithRouter(["/signin"]);
+  const renderWithRouter = (initialEntries = ["/signin"]) =>
+    render(
+      <MemoryRouter initialEntries={initialEntries}>
+        <Routes>
+          <Route path="/signin" element={<SignIn />} />
+        </Routes>
+      </MemoryRouter>
+    );
 
-//     expect(screen.getByText(/sign in as User/i)).toBeInTheDocument();
-//   });
+  it("renders with role from URL param", () => {
+    renderWithRouter(["/signin?role=trainer"]);
+    expect(screen.getByText(/sign in as Trainer/i)).toBeInTheDocument();
+    expect(screen.getByLabelText("Email:")).toBeInTheDocument();
+    expect(screen.getByLabelText("Password:")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /login/i })).toBeInTheDocument();
+  });
 
-//   it("shows validation errors when submitting empty form", async () => {
-//     renderWithRouter();
+  it("defaults to 'User' role when no role param is provided", () => {
+    renderWithRouter(["/signin"]);
+    expect(screen.getByText(/sign in as User/i)).toBeInTheDocument();
+  });
 
-//     fireEvent.click(screen.getByRole("button", { name: /login/i }));
+  it("shows validation errors when submitting empty form", async () => {
+    renderWithRouter();
+    fireEvent.click(screen.getByRole("button", { name: /login/i }));
+    expect(await screen.findByText(/please enter your email/i)).toBeInTheDocument();
+    expect(screen.getByText(/please enter your password/i)).toBeInTheDocument();
+    expect(mockLogin).not.toHaveBeenCalled();
+  });
 
-//     expect(await screen.findByText(/please enter your email/i)).toBeInTheDocument();
-//     expect(screen.getByText(/please enter your password/i)).toBeInTheDocument();
-//     expect(mockLogin).not.toHaveBeenCalled();
-//   });
+  it("calls login with correct arguments on valid submit", async () => {
+    renderWithRouter(["/signin?role=supplier"]);
+    fireEvent.change(screen.getByLabelText("Email:"), {
+      target: { value: "test@example.com" },
+    });
+    fireEvent.change(screen.getByLabelText("Password:"), {
+      target: { value: "password123" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: /login/i }));
+    await waitFor(() =>
+      expect(mockLogin).toHaveBeenCalledWith("test@example.com", "password123", "supplier")
+    );
+  });
 
-//   it("calls login with correct arguments on valid submit", async () => {
-//     renderWithRouter(["/signin?role=supplier"]);
+  it("displays error message when login error exists", () => {
+    jest.mocked(require("../../hooks/useLogin").useLogin).mockReturnValue({
+      login: mockLogin,
+      error: "Invalid credentials",
+      loading: false,
+    });
+    renderWithRouter();
+    expect(screen.getByText(/invalid credentials/i)).toBeInTheDocument();
+  });
 
-//     fireEvent.change(screen.getByLabelText(/email/i), {
-//       target: { value: "test@example.com" },
-//     });
-//     fireEvent.change(screen.getByLabelText(/password/i), {
-//       target: { value: "password123" },
-//     });
-
-//     fireEvent.click(screen.getByRole("button", { name: /login/i }));
-
-//     await waitFor(() =>
-//       expect(mockLogin).toHaveBeenCalledWith("test@example.com", "password123", "supplier")
-//     );
-//   });
-
-//   it("displays error message when login error exists", () => {
-//     mockUseLogin.mockReturnValue({
-//       login: mockLogin,
-//       error: "Invalid credentials",
-//       loading: false,
-//     });
-
-//     renderWithRouter();
-
-//     expect(screen.getByText(/invalid credentials/i)).toBeInTheDocument();
-//   });
-
-//   it("disables login button when loading", () => {
-//     mockUseLogin.mockReturnValue({
-//       login: mockLogin,
-//       error: null,
-//       loading: true,
-//     });
-
-//     renderWithRouter();
-
-//     expect(screen.getByRole("button", { name: /login/i })).toBeDisabled();
-//   });
-// });
-
-
+  it("disables login button when loading", () => {
+    jest.mocked(require("../../hooks/useLogin").useLogin).mockReturnValue({
+      login: mockLogin,
+      error: null,
+      loading: true,
+    });
+    renderWithRouter();
+    expect(screen.getByRole("button", { name: /login/i })).toBeDisabled();
+  });
+});

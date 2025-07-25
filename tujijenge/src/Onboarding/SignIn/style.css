@@ -74,6 +74,9 @@ p {
   font-size: small;
   color: red;
 }
+.inputpass{
+  margin-left: 2.8vw;
+}
 
 @media (max-width: 1280px) {
 .logo img{
@@ -91,10 +94,7 @@ h1{
 .signinButton{
   margin-top: 0vh;
 }
-.forgot-password a{
-  margin-left: 7.5vw;
 
-}
 
 }
 
@@ -118,11 +118,7 @@ h1{
   .signinButton{
     margin-top: 0vh;
   }
-  .forgot-password a{
-    margin-left: 7.5vw;
-    font-size: large;
-  
-  }
+
   .right-panel img{
     display: none;
   }
@@ -147,13 +143,3 @@ h1{
             
 }
 
-/* position: "absolute",
-                top: "50%",
-                right: "12px",
-                transform: "translateY(-50%)",
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                padding: 0,
-                color: "#555",
-                fontSize: "1.2rem", */
