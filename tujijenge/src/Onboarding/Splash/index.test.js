@@ -5,18 +5,39 @@ import { MemoryRouter } from "react-router-dom";
 
 jest.useFakeTimers();
 
-// Mock useNavigate at the top level
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
-  useNavigate: jest.fn(),
-}));
+
+jest.mock("react-router-dom", () => {
+  const actual = jest.requireActual("react-router-dom");
+  
+  return {
+    ...actual,
+    useNavigate: jest.fn(),
+    BrowserRouter: (props) => (
+      <actual.BrowserRouter
+        future={{
+          v7_startTransition: true,
+          v7_relativeSplatPath: true,
+        }}
+        {...props}
+      />
+    ),
+    MemoryRouter: (props) => (
+      <actual.MemoryRouter
+        future={{
+          v7_startTransition: true,
+          v7_relativeSplatPath: true,
+        }}
+        {...props}
+      />
+    ),
+  };
+});
 
 describe("Splash component", () => {
   let navigateMock;
-
   beforeEach(() => {
     navigateMock = jest.fn();
-    // Reset the mock before each test
+
     require("react-router-dom").useNavigate.mockReturnValue(navigateMock);
   });
 
@@ -48,12 +69,9 @@ describe("Splash component", () => {
     );
     const wrapper = screen.getByRole("img", { name: /tuijenge logo/i }).parentElement;
     expect(wrapper.classList.contains("fade-out")).toBe(false);
-
     act(() => {
       jest.advanceTimersByTime(4000);
     });
-
-    // Re-query after state update
     const updatedWrapper = screen.getByRole("img", { name: /tuijenge logo/i }).parentElement;
     expect(updatedWrapper.classList.contains("fade-out")).toBe(true);
   });
@@ -64,12 +82,10 @@ describe("Splash component", () => {
         <Splash />
       </MemoryRouter>
     );
-
     expect(navigateMock).not.toHaveBeenCalled();
     act(() => {
       jest.advanceTimersByTime(5000);
     });
-
     expect(navigateMock).toHaveBeenCalledWith("/supplychain");
   });
 
