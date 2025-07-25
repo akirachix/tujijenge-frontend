@@ -6,7 +6,7 @@ jest.mock('react-chartjs-2', () => ({
   Doughnut: () => <div>Doughnut Chart</div>,
 }));
 
-jest.mock('../CalendarView', () => () => <div>Calendar View</div>);
+jest.mock('../EventCalendar', () => () => <div>Calendar View</div>);
 
 describe('ImpactChart', () => {
   test('renders the impact chart with correct data and structure', () => {
