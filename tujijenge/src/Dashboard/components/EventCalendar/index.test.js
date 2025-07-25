@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import MyCalendar from './index';
 import { useEvents } from '../../../context/useEvents';
 
-jest.mock('../../../../context/useEvents', () => ({
+jest.mock('../../../context/useEvents', () => ({
   useEvents: jest.fn(),
 }));
 
