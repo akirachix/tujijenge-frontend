@@ -3,13 +3,12 @@ import { render, fireEvent, screen} from '@testing-library/react';
 import TrainingCalendar from './index';
 import { useEvents } from '../context/useEvents';
 
-
-jest.mock('../../SharedComponents/Button', () => (props) => (
+jest.mock('../SharedComponents/Button', () => (props) => (
   <button {...props}>{props.label || props.children}</button>
 ));
 
 
-jest.mock('../../context/useEvents');
+jest.mock('../context/useEvents');
 
 const mockEvents = [
   { id: '1', title: 'Training 1', date: '2025-07-16' },

@@ -1,9 +1,11 @@
 import React from 'react';
 import './style.css';
 
-function Button({ label, variant = 'primary', onClick, type }) {
+function Button({ label, variant = 'primary', onClick ,disabled,type}) {
   return (
-    <button type={type} className={`share-button ${variant}`.trim()} onClick={onClick}>
+    <button className={`share-button ${variant}`.trim()} onClick={onClick}
+    disabled={disabled}
+    type={type}>
       {label}
     </button>
   );
