@@ -69,11 +69,21 @@
     color: var(--tujijenge-white);
 }
 
+.additional {
+    background-color: var(--tujijenge-light-green);
+    color: var(--tujijenge-green);
+    font-size: 15px;
+}
+
+.additional:hover {
+    background-color: var(--tujijenge-green);
+    color: var(--tujijenge-white);
+}
 
 @media (max-width: 1400px){
     .share-button{
-        padding: 10px 0px;
-        font-size: 15px;
+        padding: 15px 64px;
+        font-size: 17px;
 
     }
    
@@ -85,24 +95,10 @@
     .quaternary{
         padding: 7px 15px;
         font-size: 13px;    }
-    
-}
 
-
-@media (max-width: 999px){
-    .share-button{
-        padding: 14px 50px;
-        font-size: 18px;
-
-    }
-   
-    .tertiary{
-
-        padding: 6px 12px;
-        font-size: 11px;
-    }
-    .quaternary{
+    .additional{
         padding: 7px 15px;
-        font-size: 13px;    }
+        font-size: 13px;
+    }
     
 }
