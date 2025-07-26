@@ -1,5 +1,5 @@
 import React from "react";
-import Button from '../../../SharedComponents/Button';
+import Button from '../../../sharedComponents/Button';
 import "./style.css";
 
 function ProductCard({ product, onUpdate }) {

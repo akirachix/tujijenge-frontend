@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { MdClose } from "react-icons/md";
-import Button from '../../../SharedComponents/Button';
+import Button from '../../../sharedComponents/Button';
 import "./style.css";
 
 function AddUpdateModal({ mode, product, category, onSave, onRemove, onClose }) {

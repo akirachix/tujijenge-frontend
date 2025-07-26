@@ -3,7 +3,7 @@ import SearchBar from "../SearchBar";
 import ProductToggle from "../ProductToggle";
 import ProductCard from "../ProductCard";
 import AddUpdateModal from "../AddUpdate";
-import Button from '../../../SharedComponents/Button';
+import Button from '../../../sharedComponents/Button';
 import "./style.css";
 import { useFetchProducts } from "../../../hooks/useFetchProducts";
 

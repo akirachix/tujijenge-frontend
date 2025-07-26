@@ -33,10 +33,10 @@ jest.mock("../AddUpdate", () => props => (
     <button onClick={props.onClose}>Close</button>
   </div>
 ));
-jest.mock("../../../SharedComponents/Button", () => props => (
+jest.mock("../../../sharedComponents/Button", () => props => (
   <button className={`share-button ${props.variant}`} onClick={props.onClick}>{props.label}</button>
 ));
-jest.mock("../../hooks/useFetchProducts", () => ({
+jest.mock("../../../hooks/useFetchProducts", () => ({
   useFetchProducts: () => ({
     loading: false,
     error: null,
