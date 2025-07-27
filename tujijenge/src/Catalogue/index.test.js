@@ -2,8 +2,7 @@ import React from "react";
 import { render, fireEvent, screen, waitFor } from "@testing-library/react";
 import CatalogueScreen from "./index";
 
-// Mock dependencies
-jest.mock("../SearchBar", () => props => (
+jest.mock("./components/SearchBar", () => props => (
   <div data-testid="search-bar">
     <input
       data-testid="search-input"
@@ -17,26 +16,26 @@ jest.mock("../SearchBar", () => props => (
     <div data-testid="notification-icon"></div>
   </div>
 ));
-jest.mock("../ProductToggle", () => props => (
+jest.mock("./components/ProductToggle", () => props => (
   <div>
     <button data-testid="veg-toggle" onClick={() => props.onSelect("VEG")}>Veg</button>
     <button data-testid="fruit-toggle" onClick={() => props.onSelect("FRUIT")}>Fruit</button>
   </div>
 ));
-jest.mock("../ProductCard", () => props => (
+jest.mock("./components/ProductCard", () => props => (
   <div data-testid="product-card" onClick={props.onUpdate}>{props.product.product_name}</div>
 ));
-jest.mock("../AddUpdate", () => props => (
+jest.mock("./components/AddUpdate", () => props => (
   <div data-testid="add-update-modal">
     <button onClick={() => props.onSave({ product_name: "Tomato", unit: "kg", product_price: "45", description: "", category: "VEG" })}>Save</button>
     <button onClick={() => props.onRemove(1)}>Remove</button>
     <button onClick={props.onClose}>Close</button>
   </div>
 ));
-jest.mock("../../../sharedComponents/Button", () => props => (
+jest.mock("../sharedComponents/Button", () => props => (
   <button className={`share-button ${props.variant}`} onClick={props.onClick}>{props.label}</button>
 ));
-jest.mock("../../../hooks/useFetchProducts", () => ({
+jest.mock("../hooks/useFetchProducts", () => ({
   useFetchProducts: () => ({
     loading: false,
     error: null,

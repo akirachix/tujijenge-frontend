@@ -3,7 +3,7 @@ import { render, fireEvent, screen} from '@testing-library/react';
 import TrainingCalendar from './index';
 import { useEvents } from '../context/useEvents';
 
-jest.mock('../SharedComponents/Button', () => (props) => (
+jest.mock('../sharedComponents/Button', () => (props) => (
   <button {...props}>{props.label || props.children}</button>
 ));
 

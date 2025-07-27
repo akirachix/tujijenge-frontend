@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import SearchBar from "../SearchBar";
-import ProductToggle from "../ProductToggle";
-import ProductCard from "../ProductCard";
-import AddUpdateModal from "../AddUpdate";
-import Button from '../../../sharedComponents/Button';
+import SearchBar from "./components/SearchBar";
+import ProductToggle from "./components/ProductToggle";
+import ProductCard from "./components/ProductCard";
+import AddUpdateModal from "./components/AddUpdate";
+import Button from '../sharedComponents/Button';
 import "./style.css";
-import { useFetchProducts } from "../../../hooks/useFetchProducts";
+import { useFetchProducts } from "../hooks/useFetchProducts";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 

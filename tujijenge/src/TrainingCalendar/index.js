@@ -4,7 +4,7 @@ import {
   isSameMonth, isSameDay, addMonths, parseISO,
 } from 'date-fns';
 import './styles.css';
-import Button from '../SharedComponents/Button';
+import Button from '../sharedComponents/Button';
 import { useEvents } from '../context/useEvents';
 
 const months = [
