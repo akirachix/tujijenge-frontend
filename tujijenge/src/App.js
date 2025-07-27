@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import CatalogueScreen from "./Catalogue/components/CatalogueScreen";
+import CatalogueScreen from "./Catalogue";
 import CatalogueLayout from "./sharedComponents/Layouts/index";
 import { EventsProvider } from './context/useEvents';
 
