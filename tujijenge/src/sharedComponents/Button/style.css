@@ -72,10 +72,24 @@
 .additional {
     background-color: var(--tujijenge-light-green);
     color: var(--tujijenge-green);
-    font-size: 15px;
+    font-size: 1.5rem;
+    padding: 12px 45px;
 }
 
 .additional:hover {
+    background-color: var(--tujijenge-green);
+    color: var(--tujijenge-white);
+}
+
+.secondary-additional {
+    background-color: var(--tujijenge-light-white);
+    border: 1px solid var(--tujijenge-light-green);
+    color: var(--tujijenge-green);
+    padding: 12px 40px;
+    font-size: 1.4rem;
+}
+
+.secondary-additional:hover {
     background-color: var(--tujijenge-green);
     color: var(--tujijenge-white);
 }
@@ -96,9 +110,5 @@
         padding: 7px 15px;
         font-size: 13px;    }
 
-    .additional{
-        padding: 7px 15px;
-        font-size: 13px;
-    }
     
 }

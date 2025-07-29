@@ -75,38 +75,41 @@ function AddUpdateModal({ mode, product, category, onSave, onRemove, onClose }) 
               onChange={e => setDescription(e.target.value)}
             />
           </label>
-          <label className="modal-image-url-label">
-            Add image URL:
-            <div className="modal-image-url-row">
-              <input
+          <div className="modal-image-url-row">
+             <label className="modal-image-url-label">
+                Add image URL:
+               <input
                 type="url"
                 value={imageUrl}
                 onChange={e => setImageUrl(e.target.value)}
                 placeholder="https://example.com/image.jpg"
                 className="modal-image-url-input"
-              />
-              {imageUrl && (
+                />
+            </label>
+            {imageUrl && (
                 <img src={imageUrl} alt="preview" className="modal-product-img" />
               )}
             </div>
-          </label>
-          <div className="modal-btns">
-            {mode === "update" && (
-              <Button
-                label="Remove"
-                onClick={e => {
-                  e.preventDefault();
-                  setRemoveConfirm(true);
-                }}
-                variant="quaternary"
-              />
-            )}
-            <Button
-              label={mode === "add" ? "Add" : "Update"}
-              type="submit"
-              variant="additional"
-            />
-          </div>
+            
+            <div className="modal-btns">
+              {mode === "update" && !removeConfirm && (
+                  <Button
+                    label="Remove"
+                    onClick={e => {
+                    e.preventDefault();
+                    setRemoveConfirm(true);
+                  }}
+                  variant="secondary-additional"
+                />
+              )}
+              {!removeConfirm && (
+                <Button
+                  label={mode === "add" ? "Add" : "Update"}
+                  type="submit"
+                  variant="additional"
+                />
+              )}
+            </div>
         </form>
         {removeConfirm && (
           <div className="remove-confirm">

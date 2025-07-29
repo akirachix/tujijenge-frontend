@@ -7,47 +7,36 @@ import { GiFruitBowl } from "react-icons/gi";
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-
 export default function TaimbaSidebar() {
-  const [active, setActive] = useState('dashboard');
- 
-  
-  
 
-  
+  const [active, setActive] = useState('catalogue');
+
   return (
     <>
       <div className='sidebar-expanded'>
+        <div className="sidebar-logo-container">
+          <img src={`${process.env.PUBLIC_URL}/logo192.png`} alt="Logo" className="sidebar-logo" />
+        </div>
 
-          <div className="sidebar-logo-container">
-            <img src={`${process.env.PUBLIC_URL}/logo192.png`} alt="Logo" className="sidebar-logo" />
-          </div>
-        
         <div className="menu">
-        <Link to="/"
-           style={{textDecoration:'none'}}
-           > 
-          <div
-            className={`menu-icon${active === 'catalogue' ? ' active' : ''}`}
-            onClick={() => setActive('catalogue', 'orders')}
-          >
-            <GiFruitBowl/>
-            <span>Catalogue</span>
-       
-          </div>
-          </Link> 
-
-          <Link to="/Orders"
-            style={{textDecoration:'none'}}
+          <Link to="/" style={{textDecoration:'none'}}>
+            <div
+              className={`menu-icon${active === 'catalogue' ? ' active' : ''}`}
+              onClick={() => setActive('catalogue')}
             >
-          <div
-            className={`menu-icon${active === 'orders' ? ' active' : ''}`}
-            onClick={() => setActive('orders')}
-          >
+              <GiFruitBowl/>
+              <span>Catalogue</span>
+            </div>
+          </Link>
+
+          <Link to="/Orders" style={{textDecoration:'none'}}>
+            <div
+              className={`menu-icon${active === 'orders' ? ' active' : ''}`}
+              onClick={() => setActive('orders')}
+            >
               <BsCartCheckFill />
               <span>Orders</span>
-            
-          </div>
+            </div>
           </Link>
         </div>
         <div className="sidebar-logout">
