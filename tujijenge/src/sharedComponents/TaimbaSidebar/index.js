@@ -14,14 +14,14 @@ export default function TaimbaSidebar() {
         <img src={`${process.env.PUBLIC_URL}/logo192.png`} alt="Logo" className="sidebar-logo" />
       </div>
       <div className="menu">
-        <Link to="/" style={{textDecoration:'none'}}>
-          <div className={`menu-icon${pathname === '/' ? ' active' : ''}`}>
+        <Link to="/Catalogue" style={{textDecoration:'none'}}>
+          <div className={`menu-icon${pathname === '/Catalogue' ? ' active' : ''}`}>
             <GiFruitBowl/>
             <span>Catalogue</span>
           </div>
         </Link>
-        <Link to="/orders" style={{textDecoration:'none'}}>
-          <div className={`menu-icon${pathname === '/orders' ? ' active' : ''}`}>
+        <Link to="/RecentOrders" style={{textDecoration:'none'}}>
+          <div className={`menu-icon${pathname === '/RecentOrders' ? ' active' : ''}`}>
             <BsCartCheckFill />
             <span>Orders</span>
           </div>

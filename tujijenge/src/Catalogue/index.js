@@ -6,6 +6,7 @@ import AddUpdateModal from "./components/AddUpdate";
 import Button from '../sharedComponents/Button';
 import "./style.css";
 import { useFetchProducts } from "../hooks/useFetchProducts";
+import TaimbaSidebar from "../sharedComponents/TaimbaSidebar";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -86,6 +87,7 @@ function CatalogueScreen() {
 
   return (
     <div>
+    <TaimbaSidebar />
       <div className="catalogue-content">
         <SearchBar
           value={search}
