@@ -15,7 +15,7 @@ function SignIn() {
   const [errors, setErrors] = useState({});
   const { login, error, loading } = useLogin();
   const location = useLocation();
-  const roleParam = new URLSearchParams(location.search).get("role") || "";
+  const roleParam = (new URLSearchParams(location.search).get("role") || "").toLocaleLowerCase();
   const role = capitalize(roleParam);
 
   const validate = () => {

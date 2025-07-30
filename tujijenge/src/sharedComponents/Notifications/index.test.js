@@ -11,7 +11,6 @@ describe('Notification', () => {
     { message: 'Notification 2' },
   ];
 
-  // Test to ensure the bell icon and notification badge are rendered correctly.
   test('renders the bell icon and notification badge', () => {
     render(<Notification notifications={mockNotifications} />);
     
@@ -19,7 +18,6 @@ describe('Notification', () => {
     expect(screen.getByText(mockNotifications.length)).toBeInTheDocument();
   });
 
-  // Test to verify that the dropdown toggles when the bell icon is clicked.
   test('toggles the dropdown when the bell icon is clicked', () => {
     render(<Notification notifications={mockNotifications} />);
     
@@ -33,7 +31,6 @@ describe('Notification', () => {
     expect(screen.queryByText('Notification 1')).not.toBeInTheDocument();
   });
 
-  // Test to confirm that the dropdown closes when clicking outside the component.
   test('closes the dropdown when clicking outside', () => {
     render(<Notification notifications={mockNotifications} />);
     
@@ -47,7 +44,6 @@ describe('Notification', () => {
     expect(screen.queryByText('Notification 1')).not.toBeInTheDocument();
   });
 
-  // Test to ensure a message is displayed when there are no notifications.
   test('displays a message when there are no notifications', () => {
     render(<Notification notifications={[]} />);
     

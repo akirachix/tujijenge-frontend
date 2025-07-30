@@ -1,31 +1,52 @@
-import { fetchWithAuth, BASE_URL, TOKEN_STORAGE_KEY } from './fetchApi';
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
-export const fetchOrders = async (
-  token = localStorage.getItem(TOKEN_STORAGE_KEY),
-  {
-    groupId,
-    searchQuery,
-    page = 1,
-    limit = 10,
-    groupByDateAndCommunity = true,
-    communities = {},
-    customers = {},
-    products = {},  
-  } = {}
-) => {
+export function setToken(token) {
+  localStorage.setItem("token", token);
+}
+
+export function getToken() {
+  return localStorage.getItem("token");
+}
+
+export function removeToken() {
+  localStorage.removeItem("token");
+}
+
+export const fetchOrders = async ({
+  groupId,
+  searchQuery,
+  page = 1,
+  limit = 10,
+  groupByDateAndCommunity = true,
+  communities = {},
+  customers = {},
+  products = {},
+} = {}) => {
   try {
-    const url = new URL(`${BASE_URL}/orders/`);
-    const data = await fetchWithAuth(url.toString(), token);
+    const token = getToken();
+    if (!token) throw new Error("No authentication token found. Please log in.");
+
+    const response = await fetch(`${baseUrl}orders/`, {
+      headers: {
+        'Authorization': `Token ${token}`,
+      },
+    });
+
+    if (!response.ok) throw new Error(`Something went wrong: ${response.status}`);
+
+    const data = await response.json();
     if (!Array.isArray(data)) throw new Error('API response is not an array');
+
     let orders;
+
     if (groupByDateAndCommunity) {
       const groupedOrders = data.reduce((acc, order) => {
         const communityName = communities[order.community] || 'Unknown Community';
         const key = `${order.order_date}_${communityName}`;
 
         const quantity = parseInt(order.quantity, 10) || 1;
-
         const productName = products[order.product] || 'Unknown Product';
+
         if (!acc[key]) {
           acc[key] = {
             orderIds: [order.order_id],
@@ -86,6 +107,7 @@ export const fetchOrders = async (
         };
       });
     }
+
     if (groupId) {
       orders = orders.filter(order => order.groupId === parseInt(groupId, 10));
     }
@@ -99,11 +121,13 @@ export const fetchOrders = async (
         || (order.community || '').toLowerCase().includes(lowerQuery)
       );
     }
+
     const start = (page - 1) * limit;
     const paginatedOrders = orders.slice(start, start + limit);
+
     return { paginatedOrders, total: orders.length };
   } catch (error) {
     console.error('Fetch orders error:', error);
-    throw error;
+    throw new Error(error.message ?? "An error occurred");
   }
 };

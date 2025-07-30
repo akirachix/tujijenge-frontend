@@ -1,6 +1,6 @@
 export async function loginUser({ email, password, role }) {
   const response = await fetch(
-    `${process.env.REACT_APP_API_URL}users/login/`,
+    `${process.env.REACT_APP_BASE_URL}users/login/`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },

@@ -1,24 +1,8 @@
 import React, { useState } from 'react';
 import ImpactChart from './components/ImpactChart';
-import Notification from '../SharedComponents/Notifications/index';
 import TrainingTable from './components/TrainingTable';
 import './styles.css'
 
-
-
-const notifications = [
-  { message: '1 message' },
-  { message: '2 message' },
-  { message: '1 message' },
-  { message: '2 message' },
-  { message: '1 message' },
-  { message: '2 message' },
-  { message: '1 message' },
-  { message: '2 message' },
-  { message: '1 message' },
-  { message: '2 message' },
-  { message: '2 message' },
-];
 
 
 export default function AppLayout() {
@@ -38,7 +22,6 @@ export default function AppLayout() {
         </div>
         
       </div>
-      <Notification notifications={notifications} />
     </div>
   );
 }
