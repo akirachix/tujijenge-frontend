@@ -6,10 +6,13 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 
-export default function Sidebar() {
+export default function Sidebar({ onLogout }) {
   const [active, setActive] = useState('dashboard');
+  const handleLogoutClick = () => {
+    if (onLogout) {
+      onLogout();
+    }}
  
-  
   
 
   
@@ -51,7 +54,7 @@ export default function Sidebar() {
         </div>
         <div className="sidebar-logout">
           <FontAwesomeIcon icon={faPowerOff} />
-          <span>Logout</span>
+          <span onClick={handleLogoutClick}>Logout</span>
         </div>
       </div>
     </>

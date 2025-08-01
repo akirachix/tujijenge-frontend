@@ -3,10 +3,11 @@ import Sidebar from '../Sidebar';
 import { Outlet } from 'react-router-dom'
 
 
-export default function DashboardLayout() {
+export default function DashboardLayout({ onLogout }) {
+    
     return (
         <div className="dashboard-layout">
-            <Sidebar/>
+            <Sidebar onLogout={onLogout}/>
 
             <div className="dashboard-content">
                 <Outlet/>
