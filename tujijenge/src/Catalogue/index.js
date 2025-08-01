@@ -7,6 +7,7 @@ import Button from '../sharedComponents/Button';
 import "./style.css";
 import { useFetchProducts } from "../hooks/useFetchProducts";
 import TaimbaSidebar from "../sharedComponents/TaimbaSidebar";
+import { authenticatedFetch } from "../utils/api";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -49,12 +50,9 @@ function CatalogueScreen() {
         method = "PUT";
       }
 
-      const response = await fetch(url, {
+      const response = await authenticatedFetch(url, {
         method,
-        headers: {
-          'Authorization': `Token ${localStorage.getItem("token")}`,
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' }, // authenticatedFetch will add Authorization
         body: JSON.stringify(productData),
       });
 
@@ -72,12 +70,13 @@ function CatalogueScreen() {
 
   const handleRemove = async (productId) => {
     try {
-      await fetch(`${baseUrl}products/${productId}/`, {
+      const url = `${baseUrl}products/${productId}/`;
+
+      await authenticatedFetch(url, {
         method: "DELETE",
-        headers: {
-          'Authorization': `Token ${localStorage.getItem("token")}`,
-        },
+        headers: { 'Content-Type': 'application/json' } 
       });
+
       await refetch();
       setModalOpen(false);
     } catch (err) {
@@ -87,7 +86,7 @@ function CatalogueScreen() {
 
   return (
     <div>
-    <TaimbaSidebar />
+      <TaimbaSidebar />
       <div className="catalogue-content">
         <SearchBar
           value={search}
