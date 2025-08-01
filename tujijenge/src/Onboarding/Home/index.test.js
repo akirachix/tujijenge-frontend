@@ -11,7 +11,7 @@ jest.mock("react-router-dom", () => ({
 
 describe("Welcome component", () => {
   beforeAll(() => {
-    // Suppress React Router v7 warnings
+   
     jest.spyOn(console, "warn").mockImplementation((message) => {
       if (
         message.includes("v7_startTransition") ||

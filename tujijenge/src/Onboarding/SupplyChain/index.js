@@ -1,7 +1,7 @@
 import React from "react";
 import './style.css';
 import { useNavigate } from "react-router-dom";
-import Button from '../../SharedComponents/Button/index.js'
+import Button from '../../sharedComponents/Button/index.js'
 
 function SupplyChain() {
   const navigate = useNavigate();

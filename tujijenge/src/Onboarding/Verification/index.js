@@ -1,7 +1,7 @@
 import React from "react";
 import './style.css';
 import { useNavigate } from "react-router-dom";
-import Button from "../../SharedComponents/Button";
+import Button from "../../sharedComponents/Button";
 
 function Verification() {
   const navigate = useNavigate();

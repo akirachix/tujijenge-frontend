@@ -5,13 +5,13 @@ import { useFetchOrders } from '../hooks/useFetchGroupOrders';
 import { useReferenceData } from '../hooks/useReferenceData';
 import { useNavigate, useParams } from 'react-router-dom';
 
-// Mock react-router-dom hooks
+
 jest.mock('react-router-dom', () => ({
   useNavigate: jest.fn(),
   useParams: jest.fn(),
 }));
 
-// Mock custom hooks
+
 jest.mock('../hooks/useFetchGroupOrders', () => ({
   useFetchOrders: jest.fn(),
 }));
@@ -19,7 +19,7 @@ jest.mock('../hooks/useReferenceData', () => ({
   useReferenceData: jest.fn(),
 }));
 
-// Mock sample order data
+
 const mockOrders = [
   {
     id: '1',
@@ -37,7 +37,7 @@ const mockOrders = [
   },
 ];
 
-// Mock reference data
+
 const mockReferenceData = {
   communities: {
     1: 'Community A',
@@ -69,7 +69,7 @@ describe('GroupOrders Component', () => {
 
   afterEach(() => {
     jest.clearAllMocks();
-    document.body.innerHTML = ''; // Prevent duplicate renders
+    document.body.innerHTML = ''; 
   });
 
   test('renders loading state', () => {

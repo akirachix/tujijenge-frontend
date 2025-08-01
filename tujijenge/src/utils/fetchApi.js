@@ -1,6 +1,5 @@
-const BASE_URL = process.env.REACT_APP_API_URL;
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 const TOKEN_STORAGE_KEY = 'authTokenKey';
-
 
 localStorage.getItem(TOKEN_STORAGE_KEY)
 

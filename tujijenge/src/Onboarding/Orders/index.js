@@ -1,6 +1,6 @@
 import React from "react";
 import "./style.css";
-import Button from "../../SharedComponents/Button";
+import Button from "../../sharedComponents/Button";
 import { useNavigate } from "react-router-dom";
 
 function Orders() {

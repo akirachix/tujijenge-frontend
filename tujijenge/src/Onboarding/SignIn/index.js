@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import Button from "../../SharedComponents/Button";
-import Input from "../../SharedComponents/Input";
+import Button from "../../sharedComponents/Button";
+import Input from "../../sharedComponents/Input";
 import { useLogin } from "../../hooks/useLogin";
 import "./style.css";
 
@@ -15,7 +15,7 @@ function SignIn() {
   const [errors, setErrors] = useState({});
   const { login, error, loading } = useLogin();
   const location = useLocation();
-  const roleParam = new URLSearchParams(location.search).get("role") || "";
+  const roleParam = (new URLSearchParams(location.search).get("role") || "").toLocaleLowerCase();
   const role = capitalize(roleParam);
 
   const validate = () => {

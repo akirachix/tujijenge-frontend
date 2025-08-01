@@ -1,30 +1,25 @@
-import { fetchWithAuth, BASE_URL, TOKEN_STORAGE_KEY } from './fetchApi';
-
-export const fetchOrders = async (
-  token = localStorage.getItem(TOKEN_STORAGE_KEY),
-  {
-    groupId,
-    searchQuery,
-    page = 1,
-    limit = 10,
-    groupByDateAndCommunity = true,
-    communities = {},
-    customers = {},
-    products = {},  
-  } = {}
-) => {
+import { authenticatedFetch } from "./api";
+export const fetchOrders = async ({
+  groupId,
+  searchQuery,
+  page = 1,
+  limit = 10,
+  groupByDateAndCommunity = true,
+  communities = {},
+  customers = {},
+  products = {},
+} = {}) => {
   try {
-    const url = new URL(`${BASE_URL}/orders/`);
-    const data = await fetchWithAuth(url.toString(), token);
+    const response = await authenticatedFetch(`${process.env.REACT_APP_BASE_URL}orders/`);
+    if (!response.ok) throw new Error(`Something went wrong: ${response.status}`);
+    const data = await response.json();
     if (!Array.isArray(data)) throw new Error('API response is not an array');
     let orders;
     if (groupByDateAndCommunity) {
       const groupedOrders = data.reduce((acc, order) => {
         const communityName = communities[order.community] || 'Unknown Community';
         const key = `${order.order_date}_${communityName}`;
-
         const quantity = parseInt(order.quantity, 10) || 1;
-
         const productName = products[order.product] || 'Unknown Product';
         if (!acc[key]) {
           acc[key] = {
@@ -47,7 +42,7 @@ export const fetchOrders = async (
       }, {});
       orders = Object.values(groupedOrders).map(group => ({
         id: group.orderIds[0],
-        mamamboga: group.mamamboga, 
+        mamamboga: group.mamamboga,
         community: group.community?.name || 'Unknown Community',
         total: `${group.total_price.toFixed(2)} KSH`,
         date: group.order_date
@@ -104,6 +99,6 @@ export const fetchOrders = async (
     return { paginatedOrders, total: orders.length };
   } catch (error) {
     console.error('Fetch orders error:', error);
-    throw error;
+    throw new Error(error.message ?? "An error occurred");
   }
 };

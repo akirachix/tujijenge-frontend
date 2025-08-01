@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import OrderRow from './components/OrderRow';
-import SearchBar from '../SharedComponents/SearchBar';
+import SearchBar from '../sharedComponents/SearchBar';
 import './index.css';
-import '../SharedComponents/Orders/index.css';
+import '../sharedComponents/Orders/index.css';
 import { useFetchOrders } from '../hooks/useFetchGroupOrders'; 
 
 const RecentOrders = () => {

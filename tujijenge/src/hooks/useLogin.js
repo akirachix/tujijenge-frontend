@@ -15,8 +15,11 @@ export function useLogin() {
       const data = await loginUser({ email, password });
       localStorage.setItem("authToken", data.token || "");
       const userRole = data.role?.toLowerCase().trim();
+      localStorage.setItem("role", userRole);
 
-      if (userRole !== selectedRole) {
+      const normalSelectedRole = selectedRole?.toLowerCase().trim(); 
+
+      if (userRole !== normalSelectedRole) {
         setError(`Logged in as ${userRole} but selected incorrect path.`);
         setLoading(false);
         return;
@@ -25,7 +28,7 @@ export function useLogin() {
       if (userRole === "trainer") {
         navigate("/trainer");
       } else if (userRole === "supplier") {
-        navigate("/supplier");
+        navigate("/Catalogue");
       } else {
         setError("Invalid user role");
       }

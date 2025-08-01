@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import { fetchOrders } from '../utils/fetchOrders';
 import { useReferenceData } from './useReferenceData';
-
 const TOKEN_STORAGE_KEY = 'authTokenKey';
-
 export const useFetchOrders = (
   searchQuery = '',
   page = 1,
@@ -15,17 +13,12 @@ export const useFetchOrders = (
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [totalOrders, setTotalOrders] = useState(0);
-  
   const { referenceData, loading: refLoading, error: refError } = useReferenceData();
-
   useEffect(() => {
     const fetchOrderData = async () => {
       setLoading(true);
       try {
-        const token = localStorage.getItem(TOKEN_STORAGE_KEY);
-        if (!token) throw new Error('No authentication token found. Please log in.');
-        
-        const response = await fetchOrders(token, {
+        const response = await fetchOrders( {
           groupId,
           searchQuery,
           page,
@@ -33,9 +26,8 @@ export const useFetchOrders = (
           groupByDateAndCommunity,
           communities: referenceData.communities,
           customers: referenceData.customers,
-          products: referenceData.products, 
+          products: referenceData.products,
         });
-        
         setOrders(response.paginatedOrders || []);
         setTotalOrders(response.total || 0);
       } catch (error) {
@@ -50,7 +42,6 @@ export const useFetchOrders = (
         setLoading(false);
       }
     };
-
     if (!refLoading && !refError) {
       fetchOrderData();
     }
@@ -66,7 +57,6 @@ export const useFetchOrders = (
     referenceData.customers,
     referenceData.products,
   ]);
-
   const updateOrder = (orderId, status) => {
     try {
       setOrders(prevOrders =>
@@ -80,7 +70,6 @@ export const useFetchOrders = (
       throw error;
     }
   };
-
   return {
     loading: loading || refLoading,
     error: error || refError,

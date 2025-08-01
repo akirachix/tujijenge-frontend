@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useFetchOrders } from '../hooks/useFetchGroupOrders';
 import { useReferenceData } from '../hooks/useReferenceData';
 import './index.css';
-import '../SharedComponents/Orders/index.css';
+import '../sharedComponents/Orders/index.css';
 
 function GroupOrders() {
   const navigate = useNavigate();

@@ -6,7 +6,7 @@ import Button from './index.js';
 
 jest.mock('./style.css', () => ({}));
 
-describe('Button Labe;', () => {
+describe('Button Label;', () => {
   test('button displays provided label', () => {
     render(<Button label="Sign in" onClick={() => {}} />);
     const button = screen.getByText('Sign in');
