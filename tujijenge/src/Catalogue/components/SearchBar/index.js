@@ -4,8 +4,8 @@ import "./style.css";
 
 function SearchBar({ value, onChange, onSearch }) {
   return (
-    <div className="search-bar-container">
-      <div className="search-bar">
+
+      <div className="catalogue-search-bar">
         <MdSearch className="search-icon" />
         <input
           type="text"
@@ -16,7 +16,7 @@ function SearchBar({ value, onChange, onSearch }) {
           onKeyDown={e => { if (e.key === "Enter") onSearch(); }}
         />
       </div>
-    </div>
+  
   );
 }
 

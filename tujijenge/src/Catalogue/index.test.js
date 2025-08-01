@@ -1,5 +1,6 @@
 import React from "react";
 import { render, fireEvent, screen, waitFor } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import CatalogueScreen from "./index";
 
 jest.mock("./components/SearchBar", () => props => (
@@ -49,21 +50,33 @@ jest.mock("../hooks/useFetchProducts", () => ({
 
 describe("CatalogueScreen", () => {
   it("renders products and can switch category", () => {
-    render(<CatalogueScreen />);
+    render(
+      <MemoryRouter>
+        <CatalogueScreen />
+      </MemoryRouter>
+    );
     expect(screen.getByText("Tomato")).toBeInTheDocument();
     fireEvent.click(screen.getByTestId("fruit-toggle"));
     expect(screen.getByText("Apple")).toBeInTheDocument();
   });
 
   it("opens add modal and triggers onSave", () => {
-    render(<CatalogueScreen />);
+    render(
+      <MemoryRouter>
+        <CatalogueScreen />
+      </MemoryRouter>
+    );
     fireEvent.click(screen.getByText(/Add Vegetable/i));
     fireEvent.click(screen.getByText(/Save/i));
     expect(screen.getByTestId("add-update-modal")).toBeInTheDocument();
   });
 
   it("filters products by search", () => {
-    render(<CatalogueScreen />);
+    render(
+      <MemoryRouter>
+        <CatalogueScreen />
+      </MemoryRouter>
+    );
     const input = screen.getByTestId("search-input");
     fireEvent.change(input, { target: { value: "tom" } });
     expect(screen.getByText("Tomato")).toBeInTheDocument();
@@ -71,15 +84,22 @@ describe("CatalogueScreen", () => {
     expect(screen.queryByText("Tomato")).not.toBeInTheDocument();
   });
 
-
   it("handles product update", () => {
-    render(<CatalogueScreen />);
-    fireEvent.click(screen.getByText("Tomato")); 
+    render(
+      <MemoryRouter>
+        <CatalogueScreen />
+      </MemoryRouter>
+    );
+    fireEvent.click(screen.getByText("Tomato"));
     expect(screen.getByTestId("add-update-modal")).toBeInTheDocument();
   });
 
   it("handles modal close", async () => {
-    render(<CatalogueScreen />);
+    render(
+      <MemoryRouter>
+        <CatalogueScreen />
+      </MemoryRouter>
+    );
     fireEvent.click(screen.getByText(/Add Vegetable/i));
     expect(screen.getByTestId("add-update-modal")).toBeInTheDocument();
     fireEvent.click(screen.getByText(/Close/i));

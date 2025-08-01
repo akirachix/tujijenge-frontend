@@ -2,15 +2,15 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  margin: 0; /* Remove 3% margin */
-  padding: 0 3%; /* Add padding instead */
+  padding-left: 300px; 
+  margin: 0; 
 }
 
 .order-history {
-  flex: 1; /* Take remaining space */
+  flex: 1; 
   display: flex;
   flex-direction: column;
-  padding-bottom: 2rem; /* Add bottom padding */
+  padding-bottom: 2rem; 
 }
 .page-title {
   color: var(--primary-color);
@@ -98,8 +98,8 @@
   cursor: pointer;
   transition: all 0.3s;
   flex: 1;
-  max-width: 10rem; /* Limit button width */
-  touch-action: manipulation; /* Improve touch responsiveness */
+  max-width: 10rem;
+  touch-action: manipulation; 
 }
 
 .pagination-btn:disabled {
@@ -122,10 +122,10 @@
   flex: 0 0 auto;
 }
 
-/* Tablet (max-width: 1200px) */
+
 @media screen and (max-width: 1200px) {
   .table-header {
-    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr; /* 6 columns */
+    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr; 
     grid-template-areas:
       "community community date date items items"
       "location total total customers status status";
@@ -142,7 +142,7 @@
   .table-header > div:nth-child(7) { grid-area: status; }
 }
 
-/* Mobile (max-width: 768px) */
+
 @media screen and (max-width: 768px) {
   .order-history {
     margin: 0 3%;
@@ -167,7 +167,7 @@
   }
 
   .table-header {
-    display: none; /* Hide header on mobile */
+    display: none; 
   }
 
   .order-table[data-view="table"] {
@@ -176,7 +176,7 @@
     gap: 0.625rem;
   }
 
-  /* Card layout for OrderRow (assumed to be styled in OrderRow's CSS) */
+
   .order-table[data-view="table"] > .even-row,
   .order-table[data-view="table"] > .odd-row {
     display: flex;
@@ -205,7 +205,7 @@
   }
 }
 
-/* Extra small screens (max-width: 480px) */
+
 @media screen and (max-width: 480px) {
   .recent-orders-wrapper {
     padding: 0 0.5rem;

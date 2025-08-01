@@ -1,8 +1,10 @@
-import { fetchWithAuth, BASE_URL, TOKEN_STORAGE_KEY } from './fetchApi';
+import { authenticatedFetch } from './api';
 
-export const fetchProducts = async (token = localStorage.getItem(TOKEN_STORAGE_KEY)) => {
+export const fetchProducts = async () => {
   try {
-    const data = await fetchWithAuth(`${BASE_URL}/products/`, token);
+    const response = await authenticatedFetch(`${process.env.REACT_APP_BASE_URL}products/`);
+    if (!response.ok) throw new Error(`Something went wrong: ${response.status}`);
+    const data = await response.json();
     return data.map(p => ({
       id: p.product_id,
       name: p.product_name

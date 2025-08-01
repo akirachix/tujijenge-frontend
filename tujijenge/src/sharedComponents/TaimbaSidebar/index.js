@@ -3,11 +3,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPowerOff } from '@fortawesome/free-solid-svg-icons';
 import { BsCartCheckFill } from "react-icons/bs";
 import { GiFruitBowl } from "react-icons/gi";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { removeAuthToken } from '../../utils/api'; 
 
 export default function TaimbaSidebar() {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+
+  const handleLogout = () => {
+    removeAuthToken();
+    localStorage.removeItem('role');
+    navigate('/SignIn');
+  };
+
   return (
     <div className='sidebar-expanded'>
       <div className="sidebar-logo-container">
@@ -27,7 +37,7 @@ export default function TaimbaSidebar() {
           </div>
         </Link>
       </div>
-      <div className="sidebar-logout">
+      <div className="sidebar-logout" onClick={handleLogout} style={{cursor: 'pointer'}}>
         <FontAwesomeIcon icon={faPowerOff} />
         <span>Logout</span>
       </div>
