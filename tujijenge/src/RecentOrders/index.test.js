@@ -4,17 +4,17 @@ import RecentOrders from './index';
 import { useFetchOrders } from '../hooks/useFetchGroupOrders';
 import { useNavigate } from 'react-router-dom';
 
-// Mock the useNavigate hook
+
 jest.mock('react-router-dom', () => ({
   useNavigate: jest.fn(),
 }));
 
-// Mock the useFetchOrders hook
+
 jest.mock('../hooks/useFetchGroupOrders', () => ({
   useFetchOrders: jest.fn(),
 }));
 
-// Mock sample order data
+
 const mockOrders = [
   {
     id: '1',
@@ -53,7 +53,7 @@ describe('RecentOrders Component', () => {
 
   afterEach(() => {
     jest.clearAllMocks();
-    document.body.innerHTML = ''; // Prevent duplicate renders
+    document.body.innerHTML = ''; 
   });
 
   test('renders loading state', () => {
@@ -124,26 +124,26 @@ describe('RecentOrders Component', () => {
       loading: false,
       error: null,
       updateOrder: jest.fn(),
-      totalOrders: 15, // More than one page
+      totalOrders: 15, 
     });
 
     const { rerender } = render(<RecentOrders />);
 
-    // Target the Previous button specifically within pagination-controls
+   
     const prevButton = screen.getByRole('button', { name: /Previous/i });
     const nextButton = screen.getByRole('button', { name: /Next/i });
 
-    // Previous button should be disabled on page 1
+    
     expect(prevButton).toBeDisabled();
 
-    // Click Next button
+    
     fireEvent.click(nextButton);
 
     await waitFor(() => {
       expect(useFetchOrders).toHaveBeenCalledWith('', 2, 10, null, true);
     });
 
-    // Update mock to reflect page 2
+    
     useFetchOrders.mockReturnValue({
       orders: mockOrders,
       loading: false,
@@ -152,14 +152,13 @@ describe('RecentOrders Component', () => {
       totalOrders: 15,
     });
 
-    // Re-render to reflect page 2
+  
     rerender(<RecentOrders />);
 
-    // Previous button should now be enabled
+
     const updatedPrevButton = screen.getByRole('button', { name: /Previous/i });
     expect(updatedPrevButton).not.toBeDisabled();
 
-    // Click Previous button
     fireEvent.click(updatedPrevButton);
 
     await waitFor(() => {
@@ -193,7 +192,7 @@ describe('RecentOrders Component', () => {
       loading: false,
       error: null,
       updateOrder: jest.fn(),
-      totalOrders: 10, // Exactly one page
+      totalOrders: 10, 
     });
 
     render(<RecentOrders />);

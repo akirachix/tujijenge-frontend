@@ -44,7 +44,7 @@ describe("Orders component", () => {
     expect(screen.getByText(/skip/i)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /continue/i })).toBeInTheDocument();
     expect(screen.getByAltText(/spinach/i)).toBeInTheDocument();
-    // Check number of pagination dots
+
     const dots = container.querySelectorAll(".pagination-dots .dot");
     expect(dots.length).toBe(4);
     const activeDot = container.querySelector(".pagination-dots .dot.active");

@@ -78,7 +78,7 @@ width:40%;
 
 details[open] .expand-icon {
   transform: rotate(180deg);
-}/* Product details row */
+}
 .product-details-row {
   background-color: #f8fdf5;
   padding:1.25rem 1.5rem;
