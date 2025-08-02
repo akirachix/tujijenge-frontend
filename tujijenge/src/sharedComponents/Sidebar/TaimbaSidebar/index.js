@@ -15,7 +15,7 @@ export default function TaimbaSidebar() {
   const handleLogout = () => {
     removeAuthToken();
     localStorage.removeItem('role');
-    navigate('/SignIn');
+    navigate('/home');
   };
 
   return (
