@@ -1,4 +1,4 @@
-import './index.css';
+import './style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPowerOff } from '@fortawesome/free-solid-svg-icons';
 import { BsCartCheckFill } from "react-icons/bs";
@@ -15,7 +15,7 @@ export default function TaimbaSidebar() {
   const handleLogout = () => {
     removeAuthToken();
     localStorage.removeItem('role');
-    navigate('/SignIn');
+    navigate('/home');
   };
 
   return (

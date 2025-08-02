@@ -24,7 +24,6 @@
     color: var(--tujijenge-white);
     min-width: 12vw;
     font-size: 23px;
-
 }
 
 .primary:hover {
@@ -37,7 +36,6 @@
     background-color: transparent;
     color: var(--tujijenge-green);
     font-size: 23px;
-
 }
 
 .secondary:hover {
@@ -94,21 +92,76 @@
     color: var(--tujijenge-white);
 }
 
+
+.compact-secondary {
+    border: 1px solid var(--tujijenge-green);
+    background-color: transparent;
+    color: var(--tujijenge-green);
+    font-size: 16px;
+    padding: 7px 18px;
+    border-radius: 7px;
+    margin: 0;
+    min-width: 0;
+}
+
+.compact-secondary:hover {
+    background-color: var(--tujijenge-green);
+    color: var(--tujijenge-white);
+}
+
 @media (max-width: 1400px){
     .share-button{
         padding: 15px 64px;
         font-size: 17px;
-
     }
-   
     .tertiary{
-
         padding: 7px 15px;
         font-size: 13px;
     }
     .quaternary{
         padding: 7px 15px;
-        font-size: 13px;    }
+        font-size: 13px;
+    }
+}
 
-    
+@media (width: 1024px){
+    .additional{
+        font-size: 20px;
+        padding: 5px 10px;
+    }
+}
+
+@media (width: 1024px){
+    .secondary-additional{
+        font-size: 20px;
+        padding: 5px 10px;
+    }
+}
+
+
+@media (min-width: 2304px){
+    .additional{
+        font-size: 24px;
+        padding: 5px 18px;
+    }
+}
+
+@media (min-width: 2304px){
+    .secondary-additional{
+        font-size: 24px;
+        padding: 5px 18px;
+    }
+}
+
+@media (max-width: 1280px){
+    .compact-secondary{
+        font-size: 15px;
+        padding: 6px 13px;
+    }
+}
+@media (max-width: 900px){
+    .compact-secondary{
+        font-size: 14px;
+        padding: 5px 10px;
+    }
 }
