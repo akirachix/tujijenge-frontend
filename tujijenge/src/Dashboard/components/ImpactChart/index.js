@@ -113,7 +113,7 @@ useEffect(() => {
       .catch(error => {
         console.error('Error fetching data:', error);
       });
-  }, []);
+  }, [baseUrl]);
 
 
   const handleClick = () => {
