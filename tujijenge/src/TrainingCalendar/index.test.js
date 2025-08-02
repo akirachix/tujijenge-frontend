@@ -1,129 +1,115 @@
-// import React from 'react';
-// import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-// import TrainingCalendar from './index';
-// import { useEvents } from '../context/useEvents';
-// import { format } from 'date-fns';
-
-// // Mock your useEvents hook
-// jest.mock('../context/useEvents');
-
-// describe('TrainingCalendar', () => {
-//   let mockAddEvent, mockUpdateEvent, mockDeleteEvent;
-
-//   // A helper event for tests
-//   const sampleEvent = {
-//     id: '1',
-//     title: 'Sample Event',
-//     startDate: '2025-07-15T00:00:00.000Z',
-//     start_date: '2025-07-15', // fallback name used in eventData
-//     location: 'Test Location',
-//   };
-
-//   beforeEach(() => {
-//     mockAddEvent = jest.fn();
-//     mockUpdateEvent = jest.fn();
-//     mockDeleteEvent = jest.fn();
-
-//     // Provide initial events and mocks
-//     useEvents.mockReturnValue({
-//       events: [sampleEvent],
-//       addEvent: mockAddEvent,
-//       updateEvent: mockUpdateEvent,
-//       deleteEvent: mockDeleteEvent,
-//     });
-//   });
-
-//   afterEach(() => {
-//     jest.clearAllMocks();
-//   });
+import React from 'react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import TrainingCalendar from './index';
+import { useEvents } from '../context/useEvents';
 
 
+jest.mock('../context/useEvents');
 
-//   test('renders a day cell with event and can open modal on click', () => {
-//     render(<TrainingCalendar />);
+global.alert = jest.fn();
 
-//     // Find the cell with event title text (event.title renders inside cell)
-//     const dayWithEvent = screen.getByText(sampleEvent.title);
-
-//     expect(dayWithEvent).toBeInTheDocument();
-
-//     // Click the cell to open modal
-//     fireEvent.click(dayWithEvent.closest('.calendar-cell'));
-
-//     // Modal should open with Edit Training Session header
-//     expect(screen.getByText(/Edit Training Session/i)).toBeInTheDocument();
-
-//     // The input should have initial title value prefilled
-//     const input = screen.getByLabelText(/Title:/i);
-//     expect(input).toHaveValue(sampleEvent.title);
-//   });
+describe('TrainingCalendar', () => {
+  let mockAddEvent, mockUpdateEvent, mockDeleteEvent;
 
 
-//   test('can delete an existing event', async () => {
-//     render(<TrainingCalendar />);
+  const sampleEvent = {
+    id: '1',
+    title: 'Sample Event',
+    startDate: '2025-07-15T00:00:00.000Z',
+    start_date: '2025-07-15',
+    location: 'Test Location',
+  };
 
-//     // Open modal by clicking on the cell with the event
-//     const dayWithEvent = screen.getByText(sampleEvent.title);
-//     fireEvent.click(dayWithEvent.closest('.calendar-cell'));
+  beforeAll(() => {
+    jest.useFakeTimers('modern');
+    jest.setSystemTime(new Date('2025-07-01T00:00:00Z'));
+  });
 
-//     expect(screen.getByText(/Edit Training Session/i)).toBeInTheDocument();
+  afterAll(() => {
+    jest.useRealTimers();
+  });
 
-//     // Click Delete button
-//     const deleteButton = screen.getByRole('button', { name: /Delete/i });
-//     fireEvent.click(deleteButton);
+  beforeEach(() => {
+    mockAddEvent = jest.fn();
+    mockUpdateEvent = jest.fn();
+    mockDeleteEvent = jest.fn().mockResolvedValue(true); 
+    useEvents.mockReturnValue({
+      events: [sampleEvent],
+      addEvent: mockAddEvent,
+      updateEvent: mockUpdateEvent,
+      deleteEvent: mockDeleteEvent,
+    });
+  });
 
-//     // deleteEvent should be called with event id
-//     await waitFor(() => {
-//       expect(mockDeleteEvent).toHaveBeenCalledTimes(1);
-//       expect(mockDeleteEvent).toHaveBeenCalledWith(sampleEvent.id);
-//     });
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
-//     // Modal closes
-//     expect(screen.queryByText(/Edit Training Session/i)).not.toBeInTheDocument();
-//   });
+  test('renders a day cell with event and can open modal on click', () => {
+    render(<TrainingCalendar />);
 
-//   test('can close modal without changes', () => {
-//     render(<TrainingCalendar />);
+    const dayWithEvent = screen.getByText(sampleEvent.title);
+    expect(dayWithEvent).toBeInTheDocument();
 
-//     // Open modal by clicking event cell
-//     const dayWithEvent = screen.getByText(sampleEvent.title);
-//     fireEvent.click(dayWithEvent.closest('.calendar-cell'));
+    fireEvent.click(dayWithEvent.closest('.calendar-cell'));
 
-//     // Click Cancel button
-//     const cancelButton = screen.getByRole('button', { name: /Cancel/i });
-//     fireEvent.click(cancelButton);
+    expect(screen.getByText(/Edit Training Session/i)).toBeInTheDocument();
 
-//     // Modal should no longer be present
-//     expect(screen.queryByText(/Edit Training Session/i)).not.toBeInTheDocument();
-//   });
+    const titleInput = screen.getByLabelText(/Title:/i);
+    expect(titleInput).toHaveValue(sampleEvent.title);
+  });
 
-//   test('can change month using header buttons and dropdown', () => {
-//     render(<TrainingCalendar />);
+  test('can delete an existing event', async () => {
+    render(<TrainingCalendar />);
+  
+    const dayWithEvent = screen.getByText(sampleEvent.title);
+    fireEvent.click(dayWithEvent.closest('.calendar-cell'));
+  
+    expect(screen.getByText(/Edit Training Session/i)).toBeInTheDocument();
+  
+    const deleteButton = screen.getByRole('button', { name: /Delete/i });
+    fireEvent.click(deleteButton);
+      // Wait for deleteEvent mock to be called and modal to close
+    await waitFor(() => {
+      expect(mockDeleteEvent).toHaveBeenCalledTimes(1);
+      expect(mockDeleteEvent).toHaveBeenCalledWith(sampleEvent.id);
+  
+      expect(screen.queryByText(/Edit Training Session/i)).not.toBeInTheDocument();
+    });
+  });
+  
+  test('can close modal without changes', () => {
+    render(<TrainingCalendar />);
 
-//     // Initial month name in dropdown
-//     const dropdown = screen.getByRole('combobox');
+    const dayWithEvent = screen.getByText(sampleEvent.title);
+    fireEvent.click(dayWithEvent.closest('.calendar-cell'));
 
-//     // Click next month button
-//     const nextButton = screen.getByText('>');
-//     fireEvent.click(nextButton);
+    const cancelButton = screen.getByRole('button', { name: /Cancel/i });
+    fireEvent.click(cancelButton);
 
-//     // The month/year value in dropdown should update (simulate by checking value change)
-//     // Parse value attribute on dropdown: "YYYY-MM"
-//     const valueAfterNext = dropdown.value;
+    expect(screen.queryByText(/Edit Training Session/i)).not.toBeInTheDocument();
+  });
 
-//     // Click prev month button
-//     const prevButton = screen.getByText('<');
-//     fireEvent.click(prevButton);
-//     fireEvent.click(prevButton); // go 2 months back
+  test('can change month using header buttons and dropdown', () => {
+    render(<TrainingCalendar />);
 
-//     const valueAfterPrev = dropdown.value;
+    const dropdown = screen.getByRole('combobox');
 
-//     // The values should differ (at least)
-//     expect(valueAfterNext).not.toEqual(valueAfterPrev);
+    const nextButton = screen.getByText('>');
+    fireEvent.click(nextButton);
 
-//     // Manually select a different month and year
-//     fireEvent.change(dropdown, { target: { value: '2024-0' } }); // January 2024
+    const valueAfterNext = dropdown.value;
 
-//     expect(dropdown.value).toBe('2024-0');
-//   });
-// });
+    const prevButton = screen.getByText('<');
+    fireEvent.click(prevButton);
+    fireEvent.click(prevButton);
+
+    const valueAfterPrev = dropdown.value;
+
+    expect(valueAfterNext).not.toEqual(valueAfterPrev);
+
+    fireEvent.change(dropdown, { target: { value: '2024-0' } });
+
+    expect(dropdown.value).toBe('2024-0');
+  });
+});

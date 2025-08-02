@@ -46,7 +46,7 @@
   align-items: center;
   border-radius: 10px;
   border: solid 1px  #084236;
-
+ 
 }
 
 .cards-and-chart{
@@ -73,7 +73,7 @@
   height: 3vh;
   margin-right: 0.5rem;
   border-radius: 3px;
-  margin-left: -7vw;
+  margin-left: -37vw;
  
 }
 .legend-label{
@@ -89,7 +89,7 @@
   padding: 2vh;
   position: relative;
   /* left: 0; */
-
+  margin-left: -24vw ;
 }
 .chart-title{
   /* font-size: 1.5rem; */

@@ -3,7 +3,10 @@
     width: 60%;
     margin: 0 25vw;
 }
-
+.calendarGridWrapper{
+    max-height: 80vh;
+    overflow-y: auto;
+}
 
 .calendar-header {
     display: flex;

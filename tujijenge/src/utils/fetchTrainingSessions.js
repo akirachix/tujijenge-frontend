@@ -1,8 +1,9 @@
-const baseUrl = process.env.REACT_APP_BASE_URL;
+import {  getAuthToken } from './api';
 
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 export const fetchTrainingSessions = async () => {
     
-    const token = localStorage.getItem('token');
+    const token = getAuthToken();
 
 
 
@@ -11,7 +12,7 @@ export const fetchTrainingSessions = async () => {
     }
 
     try {
-        const response = await fetch(`${baseUrl}/training_sessions/`, {
+        const response = await fetch(`${BASE_URL}/training_sessions/`, {
             headers: {
                 'Authorization': `Token ${token}`,
             },

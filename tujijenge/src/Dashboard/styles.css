@@ -4,19 +4,17 @@
 .general-stats{
     display: flex;
     flex-direction: row;
-    /* border: solid; */
+  
    
   }
   .title-header{
     display: flex;
     flex-direction: row;
     align-items: center;
-    /* justify-content: space-between; */
     gap: 20px;
     color: #084236 ;
     font-size: 20px;
     margin-left: 5vh;
-    /* border: solid; */
   }
 
   .main-collapsed{
@@ -48,17 +46,14 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        /* justify-content: space-between; */
         gap: 20px;
         color: #084236 ;
         font-size: 15px;
         margin-left: 5vh;
-        /* border: solid; */
       }
       
       .title-header h1{
         width: 150vw;
-        /* border: solid; */
       }
       Notification{
         border: solid;
@@ -71,19 +66,16 @@
   .general-stats{
       display: flex;
       flex-direction: row;
-      /* border: solid; */
      
     }
     .title-header{
       display: flex;
       flex-direction: row;
       align-items: center;
-      /* justify-content: space-between; */
       gap: 20px;
       color: #084236 ;
       font-size: 20px;
       margin-left: 5vh;
-      /* border: solid; */
     }
   
     .main-collapsed{

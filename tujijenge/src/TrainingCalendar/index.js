@@ -3,9 +3,9 @@ import {
   startOfMonth, endOfMonth, startOfWeek, endOfWeek, addDays, format,
   isSameMonth, isSameDay, addMonths, parseISO,
 } from 'date-fns';
-import './styles.css'; 
-import Button from '../SharedComponents/Button'; 
-import { useEvents } from '../context/useEvents'; 
+import './styles.css';
+import Button from '../sharedComponents/Button';
+import { useEvents } from '../context/useEvents';
 
 const months = [
   'January', 'February', 'March', 'April', 'May', 'June', 'July',
@@ -316,7 +316,9 @@ const TrainingCalendar = () => {
   return (
     <div className="big-calendar">
       <CalendarHeader currentMonth={currentMonth} onMonthChange={setCurrentMonth} />
+      <div className='calendarGridWrapper'>
       <CalendarGrid currentMonth={currentMonth} events={events || []} onDateClick={handleDateClick} />
+      </div>
       {contextError && <div style={{color: 'red', padding: '10px', textAlign: 'center'}}>Context Error: {contextError}</div>}
       {isLoading && <div style={{textAlign: 'center', padding: '10px'}}>Loading events...</div>}
 
