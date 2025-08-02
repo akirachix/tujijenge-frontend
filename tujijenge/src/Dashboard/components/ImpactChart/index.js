@@ -15,9 +15,9 @@ export default function ImpactChart() {
   const navigate = useNavigate();
 
 
-  const [mamaMbogas, setMamaMbogas] = useState([]);
-  const [communities, setCommunities] = useState([]);
-  const [registrations, setRegistrations] = useState([]);
+  const [setMamaMbogas] = useState([]);
+  const [setCommunities] = useState([]);
+  const [setRegistrations] = useState([]);
 
  
   const [stats, setStats] = useState({
