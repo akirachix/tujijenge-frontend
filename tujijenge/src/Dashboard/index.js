@@ -13,7 +13,7 @@ export default function AppLayout() {
 
 
   return (
-    <div style={{ display: 'flex' }}>
+    <div style={{ display: 'flex', overflow: 'hidden'}}>
       <div>
 
         <div className={`main ${isCollapsed ? 'main-collapsed' : 'main-expanded'}`}>

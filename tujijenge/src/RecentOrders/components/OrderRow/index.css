@@ -10,13 +10,15 @@
   display: grid;
   grid-template-columns: 1.5fr 1.3fr 1.3fr 1.3fr 1.3fr 1.3fr;
   align-items: center;
-  padding: 1.5rem;
+  padding: 0.5rem;
   width: 100%;
   font-size: 16px;
   border-bottom: 1px solid #e0e0e0;
   min-height: 70px;
   box-sizing: border-box;
   gap: 10px;
+  /* background-color: #333; */
+  /* height: 10vh; */
   cursor: pointer;
 }
 

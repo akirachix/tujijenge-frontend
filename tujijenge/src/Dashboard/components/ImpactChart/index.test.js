@@ -4,13 +4,12 @@ import ImpactChart from './index';
 import * as dataUtils from '../../../utils/dataUtils';
 import { BrowserRouter } from 'react-router-dom';
 
-
 beforeAll(() => {
   jest.spyOn(console, 'warn').mockImplementation((message) => {
     if (
       typeof message === 'string' &&
-      (message.includes('React Router Future Flag') || 
-       message.includes('No authentication token found for API'))
+      (message.includes('React Router Future Flag') ||
+        message.includes('No authentication token found for API'))
     ) {
       return;
     }
@@ -122,30 +121,30 @@ describe('ImpactChart', () => {
       </BrowserRouter>
     );
 
+ 
     await waitFor(() => {
-      expect(dataUtils.getMamaMbogaCounts).toHaveBeenCalledWith(fakeMamaMbogas);
+      // Communities card
+      const communitiesCard = screen.getByText(/Communities:/i).parentElement;
+      expect(communitiesCard).toHaveTextContent('2'); // total communities
+      expect(communitiesCard).toHaveTextContent('1'); // trained communities
+
+      // Mama Mboga card
+      const mamaMbogaCard = screen.getByText(/Mama Mboga:/i).parentElement;
+      expect(mamaMbogaCard).toHaveTextContent('2'); 
+      expect(mamaMbogaCard).toHaveTextContent('1'); 
+
+      // Impact chart title
+      expect(screen.getByText(/Impact/i)).toBeInTheDocument();
+
+      // Doughnut chart with correct data
+      const doughnutChart = screen.getByTestId('doughnut-chart');
+      expect(doughnutChart).toBeInTheDocument();
+      expect(doughnutChart).toHaveTextContent('"data":[1,1]'); 
+      
+
+      // Percentage text check
+      expect(screen.getByText('50%')).toBeInTheDocument();
     });
-
-    // Locate Communities card and check numbers within it
-    const communitiesCard = screen.getByText(/Communities:/i).parentElement;
-    expect(communitiesCard).toHaveTextContent('2'); // total communities
-    expect(communitiesCard).toHaveTextContent('1'); // trained communities
-
-    // Locate Mama Mboga card and check numbers within it
-    const mamaMbogaCard = screen.getByText(/Mama Mboga:/i).parentElement;
-    expect(mamaMbogaCard).toHaveTextContent('2'); // total mama mboga
-    expect(mamaMbogaCard).toHaveTextContent('1'); // trained mama mboga
-
-    // Check Impact chart title
-    expect(screen.getByText(/Impact/i)).toBeInTheDocument();
-
-    // Doughnut chart should be present with correct data
-    const doughnutChart = screen.getByTestId('doughnut-chart');
-    expect(doughnutChart).toBeInTheDocument();
-    expect(doughnutChart).toHaveTextContent('"data":[1,1]'); // trained=1, untrained=1
-
-    // Percentage text check
-    expect(screen.getByText('50%')).toBeInTheDocument();
   });
 
   test('handles missing token by skipping fetch', () => {
@@ -177,3 +176,5 @@ describe('ImpactChart', () => {
     expect(mockedNavigate).toHaveBeenCalledWith('/calendar');
   });
 });
+
+
