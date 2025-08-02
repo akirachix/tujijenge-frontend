@@ -1,11 +1,21 @@
 import './index.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faHouse, faPowerOff } from '@fortawesome/free-solid-svg-icons';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { removeAuthToken } from '../../../utils/api'; 
 
 export default function Sidebar() {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+
+  const handleLogout = () => {
+    removeAuthToken();
+    localStorage.removeItem('role');
+    navigate('/home');
+  };
+
 
   return (
     <div className='sidebar-expanded'>
@@ -27,9 +37,9 @@ export default function Sidebar() {
         </Link>
       </div>
       <div className="sidebar-logout">
-        <FontAwesomeIcon icon={faPowerOff} />
-        <span>Logout</span>
-      </div>
+          <FontAwesomeIcon icon={faPowerOff} />
+          <span onClick={handleLogout}>Logout</span>
+        </div>
     </div>
   );
 }

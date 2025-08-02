@@ -1,5 +1,5 @@
 
-import TaimbaSidebar from '../TaimbaSidebar';
+import TaimbaSidebar from '../../TaimbaSidebar';
 import { Outlet } from 'react-router-dom';
 
 export default function CatalogueLayout() {

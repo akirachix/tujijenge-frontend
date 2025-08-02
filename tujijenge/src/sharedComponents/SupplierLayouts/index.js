@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import TaimbaSidebar from '../TaimbaSidebar';
+import TaimbaSidebar from '../Sidebar/TaimbaSidebar/index';
 
 export default function SupplierLayout() {
     return (

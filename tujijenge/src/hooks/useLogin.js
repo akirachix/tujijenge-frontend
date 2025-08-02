@@ -26,7 +26,7 @@ export function useLogin() {
       }
 
       if (userRole === "trainer") {
-        navigate("/trainer");
+        navigate("/dashboard");
       } else if (userRole === "supplier") {
         navigate("/Catalogue");
       } else {

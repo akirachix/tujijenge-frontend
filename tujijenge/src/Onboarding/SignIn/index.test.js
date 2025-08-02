@@ -11,7 +11,7 @@ jest.mock("../../hooks/useLogin", () => ({
 
 describe("SignIn component", () => {
   beforeAll(() => {
-    // Suppress React Router v7 warnings
+   
     jest.spyOn(console, "warn").mockImplementation((message) => {
       if (
         message.includes("v7_startTransition") ||

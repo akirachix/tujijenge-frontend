@@ -5,7 +5,7 @@ import { BsCartCheckFill } from "react-icons/bs";
 import { GiFruitBowl } from "react-icons/gi";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { removeAuthToken } from '../../utils/api'; 
+import { removeAuthToken } from '../../../utils/api'; 
 
 export default function TaimbaSidebar() {
   const { pathname } = useLocation();
@@ -15,7 +15,7 @@ export default function TaimbaSidebar() {
   const handleLogout = () => {
     removeAuthToken();
     localStorage.removeItem('role');
-    navigate('/SignIn');
+    navigate('/home');
   };
 
   return (
