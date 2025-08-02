@@ -52,7 +52,7 @@ function CatalogueScreen() {
 
       const response = await authenticatedFetch(url, {
         method,
-        headers: { 'Content-Type': 'application/json' }, // authenticatedFetch will add Authorization
+        headers: { 'Content-Type': 'application/json' }, 
         body: JSON.stringify(productData),
       });
 
@@ -93,7 +93,7 @@ function CatalogueScreen() {
           onChange={e => setSearch(e.target.value)}
           onSearch={() => {}}
         />
-        <div className="catalogue-header" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+        <div className="catalogue-header">
           <ProductToggle
             selected={selectedCategory}
             onSelect={setSelectedCategory}
@@ -101,11 +101,11 @@ function CatalogueScreen() {
           <Button
             label={`Add ${selectedCategory === "VEG" ? "Vegetable" : "Fruit"}`}
             onClick={handleAdd}
-            variant="secondary"
+            variant="compact-secondary"
           />
         </div>
         {loading ? (
-          <div>Loading...</div>
+          <div className="loading">Loading...</div>
         ) : error ? (
           <div style={{color:'red'}}>{error}</div>
         ) : (
@@ -135,3 +135,4 @@ function CatalogueScreen() {
 }
 
 export default CatalogueScreen;
+        
