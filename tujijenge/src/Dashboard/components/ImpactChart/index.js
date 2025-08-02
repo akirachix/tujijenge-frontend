@@ -130,7 +130,7 @@ useEffect(() => {
         <div className="cards">
           <div className="card">
             <FontAwesomeIcon className="group" icon={faUserGroup} />
-            <p style={{ fontSize: 14, fontWeight: 600 }}>
+            <p style={{fontWeight: 600 }}>
               Communities:
               <span style={{ fontWeight: 400 }}> {stats.totalCommunities}</span> <br /><br />
               Number of communities trained:
@@ -139,7 +139,7 @@ useEffect(() => {
           </div>
           <div className="card">
             <FontAwesomeIcon className="group" icon={faUserGroup} />
-            <p style={{ fontSize: 15, fontWeight: 600 }}>
+            <p style={{  fontWeight: 600 }}>
               Mama Mboga:
               <span style={{ fontWeight: 400 }}> {stats.totalMamaMboga}</span><br /><br />
               Number of mama mboga trained:
