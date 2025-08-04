@@ -1,30 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import './index.css';
 
 function OrderRow({ order, className, onMarkDelivered }) {
   const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
-  const dropdownRef = useRef(null);
-
-  const toggleExpand = () => {
-    setExpanded((prev) => !prev);
-    console.log('Toggled expanded:', !expanded);
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setExpanded(false);
-        console.log('Closed dropdown due to outside click');
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
 
   const totalItems = order.products?.reduce((total, product) => {
     const match = product.match(/x(\d+)/) || [null, 1];
@@ -32,8 +13,8 @@ function OrderRow({ order, className, onMarkDelivered }) {
   }, 0) || 0;
 
   return (
-    <div className={`order-row-container ${className}`} ref={dropdownRef}>
-      <div className="order-row">
+    <>
+      <div className={`order-row ${className}`}>
         <div className="cell" data-label="Community:">{order.community}</div>
         <div className="cell" data-label="Order Date:">{order.date}</div>
         <div className="cell" data-label="Total Price:">{order.total}</div>
@@ -41,7 +22,7 @@ function OrderRow({ order, className, onMarkDelivered }) {
           className="cell items-cell"
           data-label="Items:"
           data-testid="items-cell"
-          onClick={toggleExpand}
+          onClick={() => setExpanded((prev) => !prev)}
           style={{ cursor: 'pointer' }}
         >
           <div className="items-summary">
@@ -78,9 +59,8 @@ function OrderRow({ order, className, onMarkDelivered }) {
           )}
         </div>
       </div>
-
       {expanded && (
-        <div className="product-details-row" data-testid="order-details-dropdown">
+        <div className="product-details-row">
           <div className="products-details">
             <p><strong>Products:</strong></p>
             <ul className="order-list">
@@ -101,7 +81,7 @@ function OrderRow({ order, className, onMarkDelivered }) {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
 

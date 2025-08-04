@@ -3,7 +3,7 @@ import OrderRow from './components/OrderRow';
 import SearchBar from '../sharedComponents/SearchBar';
 import './index.css';
 import '../sharedComponents/Orders/index.css';
-import { useFetchOrders } from '../hooks/useFetchGroupOrders'; 
+import { useFetchOrders } from '../hooks/useFetchGroupOrders';
 
 const RecentOrders = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -14,9 +14,8 @@ const RecentOrders = () => {
   const handleMarkDelivered = async (orderId) => {
     try {
       await updateOrder(orderId, 'delivered');
-      console.log('Order marked as delivered:', orderId);
     } catch (error) {
-      console.error('Failed to mark as delivered:', error);
+      // handle error
     }
   };
 
