@@ -20,9 +20,7 @@ body {
   text-align: center;
 }
 
-
 .logo {
-  padding-top: 1.5vh;
   width: 23vw; 
 }
 
@@ -54,7 +52,6 @@ p {
 
 .signinButton {
   margin-left: 3.7vw;
-  margin-top: 3vh;
   width: 100%;
 }
 
@@ -74,18 +71,26 @@ p {
   font-size: small;
   color: red;
 }
+#password-error{
+  font-size: small;
+  color: red;
+
+}
 .inputpass{
   margin-left: 2.8vw;
 }
 
-@media (max-width: 1280px) {
+@media  (min-width: 1000px) and (max-width: 1280px) {
+
 .logo img{
-  padding-top: 0;
   width: 17vw;
 
 }
+.logo-horizontal{
+  width: 30vw;
+}
 h1{
-  font-size: 200%;
+  font-size: 300%;
 }
 
 .input{
@@ -93,37 +98,23 @@ h1{
 }
 .signinButton{
   margin-top: 0vh;
+  margin-left: 9vw;
 }
 
-
+.form-container{
+  margin-right: 12vw;
+}
+.welcomeSt{
+  font-size: 200%;
+}
 }
 
-
-@media  (max-width: 820px) {
-  .logo img{
-    padding-top: 0;
-    width: 40vw;
-    margin-left: -7vw;
-  
-  }
-  h1{
-    font-size: 200%;
-  }
-  .logo-horizontal {
-    width: 50vw;
-  }
-  .input{
-    margin-left: 3.5vw;
-  }
+@media (width: 1280px){
   .signinButton{
     margin-top: 0vh;
+    margin-left: 5vw;
   }
-
-  .right-panel img{
-    display: none;
-  }
-  
-  }
+}
   @media  (max-width: 540px) {
     h1{
       font-size: 150%;
@@ -143,3 +134,43 @@ h1{
             
 }
 
+
+
+@media  (max-width: 820px) {
+  .logo img{
+    padding-top: 0;
+    width: 40vw;
+    margin-top: -70vw;
+  
+  }
+  
+  h1{
+    font-size: 200%;
+  }
+  .logo-horizontal {
+    width: 50vw;
+  }
+  .input{
+    margin-left: 3.5vw;
+  }
+  .signinButton{
+    margin-top: 0vh;
+  }
+
+  .right-panel img{
+    display: none;
+  }
+  
+  }
+
+
+
+  @media  (max-width: 1400px) and (min-width: 1281px) {
+    .signinButton{
+      margin-top: 0vh;
+      margin-left: 6.5vw;
+    }
+    .form-container{
+      margin-left: -15vw;
+    }
+  }
