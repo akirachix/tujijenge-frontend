@@ -1,82 +1,30 @@
 import React, { useState } from 'react';
 import './styles.css'; 
+import { useFetchTrainingSessions } from "../../../hooks/useFetchTrainingSessions";
 
 
-const sessionsData = [
-  {
-    id: 1, 
-    session: "Hygiene and sanitation",
-    location: "Juja, Nairobi",
-    community: "Community 1",
-    registered: 9,
-    start: "10-12-2025",
-    end: "20-12-2025"
-  },
-  {
-    id: 2,
-    session: "Hygiene and sanitation",
-    location: "Juja, Nairobi",
-    community: "Community 1",
-    registered: 9,
-    start: "10-12-2025",
-    end: "20-12-2025"
-  },
-  {
-    id: 3,
-    session: "Hygiene and sanitation",
-    location: "Juja, Nairobi",
-    community: "Community 1",
-    registered: 9,
-    start: "10-12-2025",
-    end: "20-12-2025"
-  },
-  {
-    id: 4,
-    session: "Hygiene and sanitation",
-    location: "Juja, Nairobi",
-    community: "Community 1",
-    registered: 9,
-    start: "10-12-2025",
-    end: "20-12-2025"
-  },
-  {
-    id: 5,
-    session: "Hygiene and sanitation",
-    location: "Juja, Nairobi",
-    community: "Community 1",
-    registered: 9,
-    start: "10-12-2025",
-    end: "20-12-2025"
-  },
-  {
-    id: 6,
-    session: "Hygiene and sanitation",
-    location: "Juja, Nairobi",
-    community: "Community 1",
-    registered: 9,
-    start: "10-12-2025",
-    end: "20-12-2025"
-  },
-  {
-    id: 7,
-    session: "Hygiene and sanitation",
-    location: "Juja, Nairobi",
-    community: "Community 1",
-    registered: 9,
-    start: "10-12-2025",
-    end: "20-12-2025"
+
+const TrainingTable = () => {
+
+const [currentPage, setCurrentPage] = useState(1);
+const [itemsPerPage] = useState(5); 
+
+const{loading,error, currentItems} = useFetchTrainingSessions ();
+  if  (loading){
+    return <h1>Loading...</h1>;
   }
-];
+  if  (error){
+    return <h1>{error}</h1> ;
+  }
+  
 
-export default function TrainingTable() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5); 
+
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = sessionsData.slice(indexOfFirstItem, indexOfLastItem);
+  const Items = (currentItems?? []).slice(indexOfFirstItem, indexOfLastItem);
 
-  const totalPages = Math.ceil(sessionsData.length / itemsPerPage);
+  const totalPages = Math.ceil((currentItems?.length || 0) / itemsPerPage);
 
   const paginate = (pageNumber) => {
     if (pageNumber >= 1 && pageNumber <= totalPages) {
@@ -94,22 +42,24 @@ export default function TrainingTable() {
           <tr>
             <th>Training Sessions</th>
             <th>Location</th>
-            <th>Communities</th>
+            <th>Description</th>
             <th>Registered</th>
             <th>Starting-date</th>
             <th>Ending-date</th>
+            <th>Updated</th>
           </tr>
         </thead>
         <tbody>
          
-          {currentItems.map((item, index) => (
+          {Items.map((item, index) => (
             <tr key={item.id || index} className={index % 2 === 0 ? "even-row" : "odd-row"}>
-              <td>{item.session}</td>
-              <td>{item.location}</td>
-              <td>{item.community}</td>
-              <td>{item.registered}</td>
-              <td>{item.start}</td>
-              <td>{item.end}</td>
+              <td>{`${item.title}`}</td>
+              <td>{`${item.location}`}</td>
+              <td>{`${item.description}`}</td>
+              <td>{`${item.registered}`}</td>
+              <td>{`${item.start_date}`}</td>
+              <td>{`${item.end_date}`}</td>
+              <td>{`${item.updated_at}`}</td>
             </tr>
           ))}
         </tbody>
@@ -151,3 +101,5 @@ export default function TrainingTable() {
     </div>
   );
 }
+
+export default TrainingTable;

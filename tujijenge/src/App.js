@@ -12,6 +12,9 @@ import Training from './Onboarding/Training/index.js';
 import Orders from './Onboarding/Orders/index.js';
 import Verification from './Onboarding/Verification/index.js';
 import Welcome from './Onboarding/Home/index.js';
+import TrainingCalendar from "./TrainingCalendar/index";
+import AppLayout from "./Dashboard/index";
+import DashboardLayout from "./sharedComponents/Layouts/Gain/index";
 
 
 function App() {
@@ -33,10 +36,15 @@ function App() {
             <Route path="/RecentOrders" element={<RecentOrders />} />
             <Route path="/group-orders/:groupId" element={<GroupOrders />} />
           </Route>
+          <Route element={<DashboardLayout/>}>
+          <Route path="/dashboard" element={<AppLayout/>} />
+          <Route path="/training-calendar" element={<TrainingCalendar />} />
+        </Route>
         </Routes>
       </Router>
     </EventsProvider>
   );
 }
+
 
 export default App;

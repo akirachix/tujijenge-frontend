@@ -5,12 +5,15 @@ import './styles.css'
 
 
 
+
+
+
 export default function AppLayout() {
   const [isCollapsed] = useState(false);
 
 
   return (
-    <div style={{ display: 'flex' }}>
+    <div style={{ display: 'flex', overflow: 'hidden'}}>
       <div>
 
         <div className={`main ${isCollapsed ? 'main-collapsed' : 'main-expanded'}`}>
@@ -22,6 +25,7 @@ export default function AppLayout() {
         </div>
         
       </div>
+      
     </div>
   );
 }

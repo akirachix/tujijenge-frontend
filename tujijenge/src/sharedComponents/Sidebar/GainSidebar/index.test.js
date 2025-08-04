@@ -5,6 +5,25 @@ import Sidebar from './index';
 jest.mock('@fortawesome/react-fontawesome', () => ({
   FontAwesomeIcon: ({ icon }) => <i className={`fa ${icon.iconName}`} />,
 }));
+const suppressReactRouterFutureFlagWarnings = (message) => {
+  return (
+    message.includes('React Router Future Flag Warning') ||
+    message.includes('v7_startTransition') ||
+    message.includes('v7_relativeSplatPath')
+  );
+};
+
+
+const originalWarn = console.warn;
+
+console.warn = (...args) => {
+  const [message] = args;
+  if (typeof message === 'string' && suppressReactRouterFutureFlagWarnings(message)) {
+
+    return;
+  }
+  originalWarn(...args);
+};
 
 describe('Sidebar', () => {
   test('renders the sidebar with logo and navigation links', () => {

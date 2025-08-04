@@ -6,7 +6,7 @@ import AddUpdateModal from "./components/AddUpdate";
 import Button from '../sharedComponents/Button';
 import "./style.css";
 import { useFetchProducts } from "../hooks/useFetchProducts";
-import TaimbaSidebar from "../sharedComponents/TaimbaSidebar";
+import TaimbaSidebar from "../sharedComponents/Sidebar/TaimbaSidebar/index";
 import { authenticatedFetch } from "../utils/api";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
@@ -52,7 +52,7 @@ function CatalogueScreen() {
 
       const response = await authenticatedFetch(url, {
         method,
-        headers: { 'Content-Type': 'application/json' }, // authenticatedFetch will add Authorization
+        headers: { 'Content-Type': 'application/json' }, 
         body: JSON.stringify(productData),
       });
 
@@ -86,14 +86,14 @@ function CatalogueScreen() {
 
   return (
     <div>
-      <TaimbaSidebar />
+      <TaimbaSidebar isModalOpen={modalOpen} />
       <div className="catalogue-content">
         <SearchBar
           value={search}
           onChange={e => setSearch(e.target.value)}
           onSearch={() => {}}
         />
-        <div className="catalogue-header" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+        <div className="catalogue-header">
           <ProductToggle
             selected={selectedCategory}
             onSelect={setSelectedCategory}
@@ -101,11 +101,11 @@ function CatalogueScreen() {
           <Button
             label={`Add ${selectedCategory === "VEG" ? "Vegetable" : "Fruit"}`}
             onClick={handleAdd}
-            variant="secondary"
+            variant="compact-secondary"
           />
         </div>
         {loading ? (
-          <div>Loading...</div>
+          <div className="loading">Loading...</div>
         ) : error ? (
           <div style={{color:'red'}}>{error}</div>
         ) : (

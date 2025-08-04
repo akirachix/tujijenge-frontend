@@ -1,14 +1,15 @@
-import { fetchWithAuth, BASE_URL, TOKEN_STORAGE_KEY } from './fetchApi';
+import { authenticatedFetch, getAuthToken } from "./api";
+const BASE_URL = process.env.REACT_APP_BASE_URL;  
+export const fetchCommunity = async () => {
+  const token = getAuthToken();
 
-export const fetchCommunities = async (token = localStorage.getItem(TOKEN_STORAGE_KEY)) => {
-  try {
-    const data = await fetchWithAuth(`${BASE_URL}/community`, token);
-    return data.map(c => ({
-      id: c.community_id,
-      name: c.name
-    }));
-  } catch (error) {
-    console.error('Fetch communities error:', error);
-    throw error;
+  if (!token) {
+    throw new Error("No auth token found");
   }
+  const response = await authenticatedFetch(`${BASE_URL}community/`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch community data: ${response.status}`);
+  }
+  const result = await response.json();
+  return result;
 };
