@@ -7,8 +7,6 @@ function OrderRow({ order, className, onMarkDelivered }) {
   const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
-
-  // Handle click outside to close dropdown
   useEffect(() => {
     if (!expanded) return;
 
