@@ -3,6 +3,23 @@ import { render, fireEvent, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import CatalogueScreen from "./index";
 
+beforeAll(() => {
+  const originalWarn = console.warn;
+  console.warn = (...args) => {
+    if (
+      typeof args[0] === "string" &&
+      args[0].includes("React Router Future Flag Warning")
+    ) {
+      return;
+    }
+    originalWarn(...args);
+  };
+});
+
+afterAll(() => {
+  jest.restoreAllMocks();
+});
+
 jest.mock("./components/SearchBar", () => props => (
   <div data-testid="search-bar">
     <input
