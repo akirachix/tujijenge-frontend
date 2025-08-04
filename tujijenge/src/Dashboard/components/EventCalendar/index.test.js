@@ -6,7 +6,7 @@ jest.mock('../../../context/useEvents', () => ({
   useEvents: jest.fn(),
 }));
 
-// Mock react-calendar to render tileContent for specific dates
+
 jest.mock('react-calendar', () => {
   return function MockCalendar({ tileContent }) {
     return (
@@ -22,7 +22,7 @@ describe('EventCalendar', () => {
   test('renders events from context on the calendar', () => {
     useEvents.mockReturnValue({
       events: [
-        { id: '1', title: 'Health', startDate: '2025-07-01T12:00:00.000Z' },   // <-- Use startDate
+        { id: '1', title: 'Health', startDate: '2025-07-01T12:00:00.000Z' },   
         { id: '2', title: 'Nutrition', startDate: '2025-07-15T12:00:00.000Z' },
       ],
     });
