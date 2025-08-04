@@ -1,4 +1,4 @@
-import './index.css';
+import './style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPowerOff } from '@fortawesome/free-solid-svg-icons';
 import { BsCartCheckFill } from "react-icons/bs";

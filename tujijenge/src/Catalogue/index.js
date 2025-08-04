@@ -86,7 +86,7 @@ function CatalogueScreen() {
 
   return (
     <div>
-      <TaimbaSidebar />
+      <TaimbaSidebar isModalOpen={modalOpen} />
       <div className="catalogue-content">
         <SearchBar
           value={search}
@@ -135,4 +135,3 @@ function CatalogueScreen() {
 }
 
 export default CatalogueScreen;
-        
