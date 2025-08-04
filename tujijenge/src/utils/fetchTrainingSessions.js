@@ -12,7 +12,7 @@ export const fetchTrainingSessions = async () => {
     }
 
     try {
-        const response = await fetch(`${BASE_URL}/training_sessions/`, {
+        const response = await fetch(`${BASE_URL}training_sessions/`, {
             headers: {
                 'Authorization': `Token ${token}`,
             },

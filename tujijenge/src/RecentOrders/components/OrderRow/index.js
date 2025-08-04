@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './index.css';
@@ -6,6 +6,20 @@ import './index.css';
 function OrderRow({ order, className, onMarkDelivered }) {
   const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
+  const dropdownRef = useRef(null);
+
+  // Handle click outside to close dropdown
+  useEffect(() => {
+    if (!expanded) return;
+
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setExpanded(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [expanded]);
 
   const totalItems = order.products?.reduce((total, product) => {
     const match = product.match(/x(\d+)/) || [null, 1];
@@ -28,7 +42,7 @@ function OrderRow({ order, className, onMarkDelivered }) {
           <div className="items-summary">
             <span className="item-count">{totalItems} items</span>
             <span className="expand-icon">
-              {expanded ? <FaChevronUp /> : <FaChevronDown />}
+              {expanded ? <FaChevronUp data-testid="chevron-up" /> : <FaChevronDown data-testid="chevron-down" />}
             </span>
           </div>
         </div>
@@ -60,7 +74,11 @@ function OrderRow({ order, className, onMarkDelivered }) {
         </div>
       </div>
       {expanded && (
-        <div className="product-details-row">
+        <div
+          className="product-details-row"
+          data-testid="order-details-dropdown"
+          ref={dropdownRef}
+        >
           <div className="products-details">
             <p><strong>Products:</strong></p>
             <ul className="order-list">
