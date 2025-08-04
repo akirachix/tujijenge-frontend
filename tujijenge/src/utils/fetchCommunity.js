@@ -1,15 +1,11 @@
-import { authenticatedFetch, getAuthToken } from "./api";
-const BASE_URL = process.env.REACT_APP_BASE_URL;  
-export const fetchCommunity = async () => {
-  const token = getAuthToken();
+import { authenticatedFetch, BASE_URL } from './api';
 
-  if (!token) {
-    throw new Error("No auth token found");
+export const fetchCommunity = async () => {
+  try {
+    const data = await authenticatedFetch(`${BASE_URL}/community`);
+    return data;
+  } catch (error) {
+    console.error('Fetch community error:', error);
+    throw error;
   }
-  const response = await authenticatedFetch(`${BASE_URL}community/`);
-  if (!response.ok) {
-    throw new Error(`Failed to fetch community data: ${response.status}`);
-  }
-  const result = await response.json();
-  return result;
 };

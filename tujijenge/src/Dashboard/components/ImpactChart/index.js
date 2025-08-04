@@ -8,18 +8,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserGroup } from '@fortawesome/free-solid-svg-icons';
 
 import { getMamaMbogaCounts, getCommunityStats, getRegistrationsForTrainedMamaMboga } from '../../../utils/dataUtils';
+import { authenticatedFetch, BASE_URL } from '../../../utils/api';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function ImpactChart() {
   const navigate = useNavigate();
 
-
   const [, setMamaMbogas] = useState([]);
   const [, setCommunities] = useState([]);
   const [, setRegistrations] = useState([]);
 
- 
   const [stats, setStats] = useState({
     totalCommunities: 0,
     trainedCommunities: 0,
@@ -27,7 +26,6 @@ export default function ImpactChart() {
     trainedMamaMboga: 0,
     totalRegistrationsForTrained: 0,
   });
-
 
   const [chartData, setChartData] = useState({
     labels: ["Trained Mama Mboga", "Untrained Mama Mboga"],
@@ -45,76 +43,44 @@ export default function ImpactChart() {
       legend: { display: false }
     }
   };
-  
-const baseUrl = process.env.REACT_APP_BASE_URL;
 
-const AUTH_TOKEN_LOCAL_STORAGE_KEY = 'token'; 
+  useEffect(() => {
+    Promise.all([
+      authenticatedFetch(`${BASE_URL}/users`),
+      authenticatedFetch(`${BASE_URL}/community`),
+      authenticatedFetch(`${BASE_URL}/training_registration`),
+    ])
+    .then(([mamaMbogasData, communitiesData, registrationsData]) => {
+      setMamaMbogas(mamaMbogasData);
+      setCommunities(communitiesData);
+      setRegistrations(registrationsData);
 
-const getAuthToken = () => {
-  return process.env.REACT_APP_TOKEN || localStorage.getItem(AUTH_TOKEN_LOCAL_STORAGE_KEY);
-};
+      const mamaMbogaCounts = getMamaMbogaCounts(mamaMbogasData);
+      const communityStats = getCommunityStats(communitiesData, mamaMbogasData);
+      const trainedRegistrations = getRegistrationsForTrainedMamaMboga(registrationsData, mamaMbogasData);
 
-useEffect(() => {
-  const token = getAuthToken();
-  if (!token) {
-    console.warn("No authentication token found for API. Skipping fetch.");
-    return;
-  }
-
-  Promise.all([
-    fetch(`${baseUrl}/users`, {
-      headers: {
-        'Authorization': `Token ${token}`,
-      },
-    }).then(res => res.json()),
-
-    fetch(`${baseUrl}/community`, {
-      headers: {
-        'Authorization': `Token ${token}`,
-      },
-    }).then(res => res.json()),
-
-    fetch(`${baseUrl}/training_registration`, {
-      headers: {
-        'Authorization': `Token ${token}`,
-      },
-    }).then(res => res.json()),
-  ])
-  .then(([mamaMbogasData, communitiesData, registrationsData]) => {
-    
-    setMamaMbogas(mamaMbogasData);
-    setCommunities(communitiesData);
-    setRegistrations(registrationsData);
-
-    const mamaMbogaCounts = getMamaMbogaCounts(mamaMbogasData);
-    const communityStats = getCommunityStats(communitiesData, mamaMbogasData);
-    const trainedRegistrations = getRegistrationsForTrainedMamaMboga(registrationsData, mamaMbogasData);
-
-       
-        setChartData({
-          labels: ["Trained Mama Mboga", "Untrained Mama Mboga"],
-          datasets: [{
-            data: [mamaMbogaCounts.trained, mamaMbogaCounts.untrained],
-            backgroundColor: ['#999F6C', '#084236'],
-            borderColor: ['white'],
-            borderWidth: 0.1,
-          }],
-        });
-
-        
-        setStats({
-          totalCommunities: communityStats.totalCommunities,
-          trainedCommunities: communityStats.trainedCommunities,
-          totalMamaMboga: mamaMbogaCounts.total,
-          trainedMamaMboga: mamaMbogaCounts.trained,
-          totalRegistrationsForTrained: trainedRegistrations.length,
-        });
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
+      setChartData({
+        labels: ["Trained Mama Mboga", "Untrained Mama Mboga"],
+        datasets: [{
+          data: [mamaMbogaCounts.trained, mamaMbogaCounts.untrained],
+          backgroundColor: ['#999F6C', '#084236'],
+          borderColor: ['white'],
+          borderWidth: 0.1,
+        }],
       });
-  }, [baseUrl]);
 
+      setStats({
+        totalCommunities: communityStats.totalCommunities,
+        trainedCommunities: communityStats.trainedCommunities,
+        totalMamaMboga: mamaMbogaCounts.total,
+        trainedMamaMboga: mamaMbogaCounts.trained,
+        totalRegistrationsForTrained: trainedRegistrations.length,
+      });
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
+  }, []);
 
   const handleClick = () => {
     navigate('/calendar');

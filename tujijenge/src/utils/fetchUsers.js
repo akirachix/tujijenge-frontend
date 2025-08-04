@@ -1,8 +1,8 @@
-import { fetchWithAuth, BASE_URL, TOKEN_STORAGE_KEY } from './fetchApi';
+import { authenticatedFetch, BASE_URL } from './api';
 
-export const fetchUsers = async (token = localStorage.getItem(TOKEN_STORAGE_KEY)) => {
+export const fetchUsers = async () => {
   try {
-    const data = await fetchWithAuth(`${BASE_URL}/users`, token);
+    const data = await authenticatedFetch(`${BASE_URL}/users`);
     return data.map(u => ({
       id: u.id,
       first_name: u.first_name,
