@@ -1,0 +1,54 @@
+  .catalogue-search-bar {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1.5px solid #C2CA83;
+    border-radius: 30px;
+    margin-left: 80px;
+    padding: 1vh 2vh;
+    width: 80vw;
+    max-width: 300px; 
+    height: 1.5vh;
+
+  }
+  
+  .catalogue-search-bar input {
+    border: none;
+    background: transparent;
+    font-size: 1rem;
+    margin-left: 8px;
+    outline: none;
+    width: 100%;
+    color: #084236;
+  }
+  
+  .search-icon {
+    color: #C2CA83;
+    font-size: 1.8rem;
+  }
+  .notification{
+    font-size: 1.5rem;
+    color: #084236;
+  }
+
+ @media only screen and (width: 1024px) {
+  .catalogue-search-bar {
+
+    width: 250px;
+    height: 4vh;
+  }
+ }
+
+ @media only screen and (width: 2304px) {
+  .catalogue-search-bar {
+    width: 260px;
+    height: 1vh;
+  }
+ }
+
+ @media (min-width: 1025px) and (max-width: 2000px){
+  .catalogue-search-bar {
+    width: 250px;
+    height: 2.25vh;
+  }
+ }

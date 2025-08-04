@@ -1,0 +1,99 @@
+.training-table{
+    /* display: flex; */
+    width: 90%;
+    /* margin: -40vh 10vh; */
+    text-align: center;
+    margin-left: 10vh;
+}
+.odd-row{
+    background-color: #DADFB1;
+    height: 5vh;
+}
+.even-row{
+height: 5vh;
+}
+hr{
+    width: 100%;
+}
+.horizontal-line {
+    border-top: 1px solid #a39d9d;
+    margin: 20px 0;
+    width: 100%; 
+    /* display: none; */
+  }
+
+th{
+  color:#C0C882;
+  font-size: 1.5rem;
+}
+.pagination-list {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  justify-content: center; 
+  margin-top: 20px;
+}
+
+.pagination-list li {
+  margin: 0 5px; 
+}
+
+.pagination-button {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  background-color: #f8f8f8;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.pagination-button:hover {
+  background-color: #eee;
+}
+
+.pagination-button.active {
+  background-color:  #084236; 
+  color: white;
+  
+}
+
+  @media only screen and (max-width: 1500px){
+    .training-table{
+      max-width: 100vw;
+      width: 80vw;
+      max-height: 60vh;
+      height: 25vh;
+      font-size: 0.8rem;
+      margin-left: 12vh;
+      
+  }
+  th{
+    font-size: 1rem;
+  }
+  .pagination-button {
+    padding: 5px 8px;   
+    font-size: 0.8rem;
+    width: fit-content;
+  }
+
+
+  }
+  @media only screen and (max-width: 1024px){
+    .training-table{
+        max-width: 100vw;
+        width: 75vw;
+        max-height: 60vh;
+        height: 25vh;
+        font-size: 0.65rem;
+        
+    }
+    th{
+      font-size: 0.9rem;
+    }
+    .pagination-button {
+      padding: 5px 8px;   
+      font-size: 0.6rem;
+      width: fit-content;
+    }
+  
+
+  }
