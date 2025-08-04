@@ -82,46 +82,40 @@ html, body {
   color: #999;
   font-style: italic;
 }
-.order-item:hover {
-  background: #e8f5e9;
-}
-.items-summary {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 0;
-  width: 100%;
-  min-width: 0;
-  gap: 0.5em;
-  flex-wrap: nowrap;        /* Prevent wrapping */
-}
-.item-count {
-  font-weight: 600;
-  color: var(--primary-color);
-}
-.item-count,
-.expand-icon {
-  min-width: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  flex-shrink: 1;
-}
-.expand-icon {
-  font-size: 0.9em;
-  margin-left: 8px;
-  color: var(--secondary-color);
-  transition: transform 0.3s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
-.status-col {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+@media (max-width: 1200px) {
+  .order-row {
+    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+      "community community date date items items"
+      "location total total customers status status";
+    gap: 10px;
+    padding: 15px;
+  }
+  .cell:nth-child(1) {
+    grid-area: community;
+  }
+  .cell:nth-child(2) {
+    grid-area: date;
+  }
+  .cell:nth-child(3) {
+    grid-area: location;
+  }
+  .cell:nth-child(4) {
+    grid-area: total;
+  }
+  .cell:nth-child(5) {
+    grid-area: items;
+  }
+  .cell:nth-child(6) {
+    grid-area: customers;
+  }
+  .cell:nth-child(7) {
+    grid-area: status;
+  }
+  .product-details-row {
+    padding: 15px 20px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -158,8 +152,7 @@ html, body {
     margin-right: 8px;
   }
   .items-summary {
-    width: auto;            /* Let content decide width */
-    min-width: 200px; 
+    width: 100%; 
   }
 }
 
