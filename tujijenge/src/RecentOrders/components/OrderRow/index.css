@@ -1,16 +1,28 @@
+body, html {
+  height: auto !important;
+  overflow-y: auto !important;
+}
+
+
 .order-row-container {
   display: flex;
   flex-direction: column;
   width: 100%;
   position: relative;
   height: auto;
+  padding: 1rem;
+}
+.order-row-container.expanded {
+  z-index: 2; 
+  position: relative;
+  overflow: visible; 
 }
 
 .order-row {
   display: grid;
   grid-template-columns: 1.5fr 1.3fr 1.3fr 1.3fr 1.3fr 1.3fr;
   align-items: center;
-  padding: 1.5rem;
+  padding: 0.7rem;
   width: 100%;
   font-size: 16px;
   border-bottom: 1px solid #e0e0e0;
@@ -19,6 +31,7 @@
   gap: 10px;
   cursor: pointer;
 }
+
 
 .cell {
   padding: 0 10px;
@@ -30,12 +43,18 @@
   min-height: 40px;
   white-space: nowrap;
   box-sizing: border-box;
+  white-space: normal;
+  overflow-wrap: break-word;
+
+
 }
+
 
 .items-cell {
   position: relative;
   white-space: normal;
 }
+
 
 .view-customers-col,
 .status-col {
@@ -47,6 +66,7 @@
   border-radius: 10px;
 }
 
+
 .items-summary {
   display: flex;
   justify-content: space-between;
@@ -55,10 +75,12 @@
   width: 40%; 
 }
 
+
 .item-count {
   font-weight: 600;
   color: var(--primary-color);
 }
+
 
 .expand-icon {
   font-size: 0.9em;
@@ -70,16 +92,22 @@
   justify-content: center;
 }
 
+
 .product-details-row {
   background-color: #f8fdf5;
   padding: 15px 20px; 
   width: 100%;
   box-sizing: border-box;
+  margin-top: 0.5rem;
+  position: relative;
+  z-index: 3;
 }
+
 
 .products-details {
   padding: 0; 
 }
+
 
 .products-details p {
   margin: 0 0 10px 0;
@@ -87,11 +115,13 @@
   color: #333;
 }
 
+
 .order-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
+
 
 .order-item {
   padding: 12px 20px; 
@@ -99,14 +129,17 @@
   color: #333;
 }
 
+
 .order-item:hover {
   background: #e8f5e9; 
 }
+
 
 .order-item.no-orders {
   color: #999;
   font-style: italic;
 }
+
 
 @media (max-width: 1200px) {
   .order-row {
@@ -143,6 +176,7 @@
   }
 }
 
+
 @media (max-width: 768px) {
   .order-row {
     grid-template-columns: 1fr;
@@ -158,10 +192,12 @@
     gap: 12px;
   }
 
+
   .cell {
     padding: 10px 8px;
     border-bottom: 1px solid #f0f0f0;
   }
+
 
   .cell:before {
     content: attr(data-label);
@@ -171,15 +207,18 @@
     display: inline-block;
   }
 
+
   .items-summary {
     width: 100%; 
   }
+
 
   .product-details-row {
     padding: 10px;
     width: calc(100% + 20px);
     margin-left: -10px;
   }
+
 
   .products-details ul {
     padding-left: 20px; 
