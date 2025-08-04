@@ -1,15 +1,11 @@
 import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
 import { authenticatedFetch, BASE_URL, getAuthToken } from '../utils/api';
-
 const EventsContext = createContext({});
 export const useEvents = () => useContext(EventsContext);
-
 export const EventsProvider = ({ children }) => {
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-
-
   const fetchEvents = useCallback(async () => {
     if (!BASE_URL) {
       console.warn("BASE_URL not set. Skipping fetch.");
@@ -55,83 +51,9 @@ export const EventsProvider = ({ children }) => {
       setIsLoading(false);
     }
   }, []);
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  const baseUrl = process.env.REACT_APP_BASE_URL; 
-
-
-  const fetchEvents = useCallback(async () => {
-    if (!baseUrl) {
-      console.warn("API_BASE_URL not set. Skipping fetch.");
-     
-      return;
-    }
-
-    const token = getAuthToken(); 
-    if (!token) {
-      console.warn("No authentication token found for API. Skipping fetch events.");
-
-      setEvents([]); 
-      return;
-    }
-
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await fetch(`${baseUrl}/training_sessions/`, {
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': `Token ${token}`, 
-        },
-      });
-
-      if (response.status === 401) {
-        console.error("Authorization error (401) fetching events.");
-        setError("Session expired or token invalid. Please re-authenticate.");
-        localStorage.removeItem(AUTH_TOKEN_LOCAL_STORAGE_KEY); 
-        setEvents([]);
-        return;
-      }
-
-      if (!response.ok) {
-        let errorDetail = 'Failed to fetch events';
-        try {
-          const errorData = await response.json();
-          errorDetail = errorData.detail || errorData.message || JSON.stringify(errorData);
-        } catch (e) {}
-        throw new Error(`${errorDetail} (Status: ${response.status})`);
-      }
-
-      const data = await response.json();
-      const loadedEvents = data.map(event => ({
-        id: event.session_id,
-        title: event.title,
-        startDate: event.start_date,
-        location: event.location,
-        isCancelled: event.is_cancelled,
-        updatedAt: event.updated_at,
-      }));
-      setEvents(loadedEvents);
-    } catch (err) {
-      console.error('Error fetching events:', err);
-      setError(err.message || "An error occurred fetching events.");
-    } finally {
-      setIsLoading(false);
-    }
-  }, [baseUrl]); 
-
-  useEffect(() => {
-    
-    fetchEvents();
-  }, [fetchEvents]);
-
   useEffect(() => {
     fetchEvents();
   }, [fetchEvents]);
-
-
   const addEvent = async (newEventData) => {
     if (!BASE_URL) return null;
     const token = getAuthToken();
@@ -176,7 +98,6 @@ export const EventsProvider = ({ children }) => {
       setIsLoading(false);
     }
   };
-
   const updateEvent = async (eventId, updatedEventData) => {
     if (!BASE_URL) return null;
     const token = getAuthToken();
@@ -223,7 +144,6 @@ export const EventsProvider = ({ children }) => {
       setIsLoading(false);
     }
   };
-
   const deleteEvent = async (eventId) => {
     if (!BASE_URL) return false;
     const token = getAuthToken();
@@ -258,7 +178,6 @@ export const EventsProvider = ({ children }) => {
       setIsLoading(false);
     }
   };
-
   const value = {
     events,
     isLoading,
@@ -269,7 +188,6 @@ export const EventsProvider = ({ children }) => {
     deleteEvent,
     clearError: () => setError(null),
   };
-
   return (
     <EventsContext.Provider value={value}>
       {children}

@@ -32,7 +32,7 @@
   font-size: clamp(0.9rem, 2.5vw, 1rem);
   color: var(--secondary-color);
   font-weight: 600;
-  background-color: var(--bg-row-even, #f8fdf5);
+  background-color: var(--bg-row-even, #F8FDF5);
   padding: 0.75rem;
   border-radius: 1rem;
   text-align: center;
@@ -81,7 +81,7 @@
   cursor: not-allowed;
  }
  .pagination-btn:hover:not(:disabled) {
-  background-color: var(--button-hover, #bcbe8a);
+  background-color: var(--button-hover, #BCBE8A);
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
@@ -93,6 +93,11 @@
   text-align: center;
   flex: 0 0 auto;
  }
+ @media (max-width: 768px) {
+  .recent-orders-wrapper {
+    padding-left: 0;
+    padding-right: 0;
+  }
   .order-history {
     margin: 0 3%;
   }
@@ -125,12 +130,6 @@
     font-size: clamp(0.875rem, 4vw, 1rem);
   }
  }
-  @media (max-width: 768px) {
-  .recent-orders-wrapper {
-    padding-left: 0;
-    padding-right: 0;
-  }
- 
  @media (max-width: 480px) {
   .recent-orders-wrapper {
     padding: 0 0.5rem;
@@ -149,5 +148,12 @@
     font-size: clamp(0.8rem, 3.5vw, 0.9rem);
   }
  }
- 
- 
+
+
+
+
+
+
+
+
+
