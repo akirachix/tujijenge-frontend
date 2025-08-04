@@ -17,6 +17,7 @@ h2 {
 .catalogue-content {
   position: fixed;
   top: 0;
+
   right: 0;
   height: 100vh;
   overflow-y: auto;
@@ -24,6 +25,7 @@ h2 {
   background: #ebe6e6;
   width: 100%;
   max-width: calc(100vw - 250px);
+
   transition: left 0.3s, padding 0.3s;
   box-sizing: border-box;
 }
@@ -38,8 +40,10 @@ h2 {
 
 .product-card {
 
+
   font-size: 1.1rem;
   margin-left: 3vw;
+
 
   padding: 1.3rem;
   background: #fff;
@@ -61,21 +65,6 @@ h2 {
 }
 
 
-/* @media only screen and (max-width: 1280px) {
-  .catalogue-content {
-    left: 170px;
-    max-width: calc(100vw - 170px);
-    padding: 1.2rem 30px 1.2rem 0;
-  }
-  .product-grid {
-    gap: 1.2rem;
-    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  }
-  .product-card {
-    font-size: 1rem;
-    padding: 1rem;
-  }
-} */
 
 @media only screen and (width: 1024px) {
   .catalogue-content {
@@ -128,7 +117,9 @@ h2 {
   }
   h2 {
     font-size: 2rem;
+
   }
+}
 
  }
 
@@ -262,94 +253,3 @@ h2 {
   }
 
  }
-
-
-
-
-/*
-@media only screen and (min-width: 1440px) {
-  .catalogue-content {
-    padding: 3rem 160px 3rem 0;
-    font-size: 1.2rem;
-    max-width: calc(100vw - 350px);
-    left: 330px;
-  }
-  .product-grid {
-    gap: 3rem;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  }
-  .product-card {
-    font-size: 1.22rem;
-    padding: 2.4rem 2rem;
-    max-width: 350px;
-  }
-}
-
-@media only screen and (min-width: 1920px) {
-  .catalogue-content {
-    padding: 4rem 300px 4rem 0;
-    left: 400px;
-    max-width: calc(100vw - 400px);
-  }
-  .product-grid {
-    gap: 3.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  }
-}
-*/
-
-/*
-@media only screen and (max-width: 900px) {
-  .catalogue-content {
-    left: 120px;
-    max-width: calc(100vw - 120px);
-    padding: 1rem 12px 1rem 0;
-  }
-  .product-grid {
-    gap: 0.7rem;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  }
-  .product-card {
-    font-size: 0.95rem;
-    padding: 0.8rem;
-  }
-}
-
-@media only screen and (max-width: 700px) {
-  .catalogue-content {
-    left: 90px;
-    max-width: calc(100vw - 90px);
-    padding: 0.7rem 6px 0.7rem 0;
-  }
-  .product-grid {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 0.5rem;
-  }
-  .product-card {
-    font-size: 0.85rem;
-    padding: 0.6rem;
-  }
-}
-
-
-@media only screen and (max-width: 600px) {
-  .catalogue-header {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1rem;
-  }
-  .search-bar input {
-    font-size: 1rem;
-    padding: 0.6rem;
-  }
-  .product-toggle span {
-    font-size: 1rem;
-  }
-  .add-update-btn {
-    font-size: 1rem;
-    padding: 0.6rem 1.2rem;
-  }
-}
-
-
- */

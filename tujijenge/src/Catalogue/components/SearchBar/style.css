@@ -9,6 +9,7 @@
     width: 80vw;
     max-width: 300px; 
     height: 1.5vh;
+
   }
   
   .catalogue-search-bar input {
@@ -32,6 +33,7 @@
 
  @media only screen and (width: 1024px) {
   .catalogue-search-bar {
+
     width: 250px;
     height: 4vh;
   }

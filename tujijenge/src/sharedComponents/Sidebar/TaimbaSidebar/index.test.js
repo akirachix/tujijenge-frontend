@@ -3,7 +3,6 @@ import { render, fireEvent, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import TaimbaSidebar from "./index";
 
-
 beforeAll(() => {
   const originalWarn = console.warn;
   console.warn = (...args) => {
@@ -20,6 +19,7 @@ beforeAll(() => {
 afterAll(() => {
   jest.restoreAllMocks();
 });
+
 describe("TaimbaSidebar", () => {
   it("renders logo and menu icons", () => {
     render(
@@ -41,7 +41,6 @@ describe("TaimbaSidebar", () => {
     );
     const orders = screen.getByText("Orders");
     fireEvent.click(orders);
-    // Can't check active state directly, but click should not error
   });
 
   it("renders all icons (at least 3/5)", () => {

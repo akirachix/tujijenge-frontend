@@ -93,11 +93,6 @@
   text-align: center;
   flex: 0 0 auto;
  }
- @media (max-width: 768px) {
-  .recent-orders-wrapper {
-    padding-left: 0;
-    padding-right: 0;
-  }
   .order-history {
     margin: 0 3%;
   }
@@ -130,7 +125,11 @@
     font-size: clamp(0.875rem, 4vw, 1rem);
   }
  }
- 
+  @media (max-width: 768px) {
+  .recent-orders-wrapper {
+    padding-left: 0;
+    padding-right: 0;
+  }
  
  @media (max-width: 480px) {
   .recent-orders-wrapper {

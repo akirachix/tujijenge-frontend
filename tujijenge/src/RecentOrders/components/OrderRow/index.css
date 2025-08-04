@@ -70,8 +70,10 @@ html, body {
   min-height: 70px;
   box-sizing: border-box;
   gap: 10px;
+
  }
  .cell {
+
   padding: 0 10px;
   display: flex;
   align-items: center;
