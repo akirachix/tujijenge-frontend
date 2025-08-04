@@ -33,7 +33,7 @@ function SignIn() {
   };
 
   return (
-    <div className="welcome-wrapper">
+    <div className="welcome-wrapper signin">
       <div className="left-panel">
         <div className="logo">
           <img src="/assets/logo.png" alt="Tuijenge Logo" className="logostackedSt" />
