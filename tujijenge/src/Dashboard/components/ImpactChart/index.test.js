@@ -1,19 +1,22 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
-import ImpactChart from './index';
+import ImpactChart from './index'; 
 import * as dataUtils from '../../../utils/dataUtils';
+import * as apiUtils from '../../../utils/api'; 
 import { BrowserRouter } from 'react-router-dom';
 
 beforeAll(() => {
-  jest.spyOn(console, 'warn').mockImplementation((message) => {
+  const originalWarn = console.warn;
+  jest.spyOn(console, 'warn').mockImplementation((message, ...args) => {
     if (
       typeof message === 'string' &&
-      (message.includes('React Router Future Flag') ||
-        message.includes('No authentication token found for API'))
+      (message.includes('React Router Future Flag') || 
+        message.includes('No authentication token found for API') || 
+        message.includes('Error fetching data:')) 
     ) {
       return;
     }
-    console.warn(message);
+    originalWarn(message, ...args); 
   });
 });
 
@@ -42,8 +45,16 @@ jest.mock('react-chartjs-2', () => ({
   ),
 }));
 
+jest.mock('../../../utils/api', () => ({
+  ...jest.requireActual('../../../utils/api'), 
+  authenticatedFetch: jest.fn(), 
+  BASE_URL: 'https://fakeapi.com', 
+                                 
+}));
+
+
 describe('ImpactChart', () => {
-  const baseUrl = 'https://fakeapi.com';
+  // const baseUrl = 'https://fakeapi.com'; 
   const fakeMamaMbogas = [
     { id: 1, certified_status: 'certified' },
     { id: 2, certified_status: 'not_certified' },
@@ -58,30 +69,22 @@ describe('ImpactChart', () => {
   ];
 
   beforeEach(() => {
-    process.env.REACT_APP_BASE_URL = baseUrl;
-    process.env.REACT_APP_TOKEN = 'fake_token';
+    mockedNavigate.mockClear();
+    apiUtils.authenticatedFetch.mockClear(); 
 
-    global.fetch = jest.fn((url) => {
+    apiUtils.authenticatedFetch.mockImplementation(async (url) => {
       if (url.endsWith('/users')) {
-        return Promise.resolve({
-          ok: true,
-          json: () => Promise.resolve(fakeMamaMbogas),
-        });
+        return fakeMamaMbogas;
       }
       if (url.endsWith('/community')) {
-        return Promise.resolve({
-          ok: true,
-          json: () => Promise.resolve(fakeCommunities),
-        });
+        return fakeCommunities;
       }
       if (url.endsWith('/training_registration')) {
-        return Promise.resolve({
-          ok: true,
-          json: () => Promise.resolve(fakeRegistrations),
-        });
+        return fakeRegistrations;
       }
-      return Promise.reject(new Error('Unknown endpoint'));
+      throw new Error(`Unknown endpoint in mock: ${url}`);
     });
+
 
     jest.spyOn(dataUtils, 'getMamaMbogaCounts').mockImplementation((mamaMbogas) => {
       const trained = mamaMbogas.filter(m => m.certified_status === 'certified').length;
@@ -109,9 +112,7 @@ describe('ImpactChart', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
-    delete process.env.REACT_APP_BASE_URL;
-    delete process.env.REACT_APP_TOKEN;
+    jest.restoreAllMocks(); // Restores original implementations, good practice
   });
 
   test('renders stats and chart based on fetched data', async () => {
@@ -121,35 +122,34 @@ describe('ImpactChart', () => {
       </BrowserRouter>
     );
 
- 
-    await waitFor(() => {
-      // Communities card
-      const communitiesCard = screen.getByText(/Communities:/i).parentElement;
-      expect(communitiesCard).toHaveTextContent('2'); // total communities
-      expect(communitiesCard).toHaveTextContent('1'); // trained communities
+    expect(apiUtils.authenticatedFetch).toHaveBeenCalledWith(`${apiUtils.BASE_URL}/users`);
+    expect(apiUtils.authenticatedFetch).toHaveBeenCalledWith(`${apiUtils.BASE_URL}/community`);
+    expect(apiUtils.authenticatedFetch).toHaveBeenCalledWith(`${apiUtils.BASE_URL}/training_registration`);
 
-      // Mama Mboga card
+
+    await waitFor(() => {
+      const communitiesCard = screen.getByText(/Communities:/i).parentElement;
+      expect(communitiesCard).toHaveTextContent('2'); 
+      expect(communitiesCard).toHaveTextContent('1'); 
       const mamaMbogaCard = screen.getByText(/Mama Mboga:/i).parentElement;
       expect(mamaMbogaCard).toHaveTextContent('2'); 
       expect(mamaMbogaCard).toHaveTextContent('1'); 
 
-      // Impact chart title
       expect(screen.getByText(/Impact/i)).toBeInTheDocument();
 
-      // Doughnut chart with correct data
       const doughnutChart = screen.getByTestId('doughnut-chart');
       expect(doughnutChart).toBeInTheDocument();
-      expect(doughnutChart).toHaveTextContent('"data":[1,1]'); 
-      
+      expect(JSON.parse(doughnutChart.textContent).datasets[0].data).toEqual([1, 1]);
 
-      // Percentage text check
+
       expect(screen.getByText('50%')).toBeInTheDocument();
     });
   });
 
-  test('handles missing token by skipping fetch', () => {
-    delete process.env.REACT_APP_TOKEN;
-    const consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+  test('handles API errors gracefully', async () => {
+    apiUtils.authenticatedFetch.mockRejectedValue(new Error('Network Error'));
+    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+
 
     render(
       <BrowserRouter>
@@ -157,10 +157,19 @@ describe('ImpactChart', () => {
       </BrowserRouter>
     );
 
-    expect(consoleWarnSpy).toHaveBeenCalledWith('No authentication token found for API. Skipping fetch.');
+    await waitFor(() => {
+      expect(consoleErrorSpy).toHaveBeenCalledWith('Error fetching data:', expect.any(Error));
+    });
 
-    consoleWarnSpy.mockRestore();
+    const communitiesCard = screen.getByText(/Communities:/i).parentElement;
+    expect(communitiesCard).toHaveTextContent('0');
+    const mamaMbogaCard = screen.getByText(/Mama Mboga:/i).parentElement;
+    expect(mamaMbogaCard).toHaveTextContent('0');
+    expect(screen.getByText('0%')).toBeInTheDocument(); 
+
+    consoleErrorSpy.mockRestore();
   });
+
 
   test('navigates to /calendar on calendar click', async () => {
     render(
@@ -169,12 +178,43 @@ describe('ImpactChart', () => {
       </BrowserRouter>
     );
 
+    await waitFor(() => expect(apiUtils.authenticatedFetch).toHaveBeenCalledTimes(3));
+
     await waitFor(() => screen.getByTestId('calendar-view'));
+
 
     screen.getByTestId('calendar-view').click();
 
     expect(mockedNavigate).toHaveBeenCalledWith('/calendar');
   });
+
+
+
+  test('handles failure from authenticatedFetch (e.g., due to missing token)', async () => {
+    apiUtils.authenticatedFetch.mockRejectedValue(new Error('Auth token not found')); 
+    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+
+    render(
+      <BrowserRouter>
+        <ImpactChart />
+      </BrowserRouter>
+    );
+
+    await waitFor(() => {
+      expect(consoleErrorSpy).toHaveBeenCalledWith('Error fetching data:', expect.any(Error));
+    });
+
+
+    const communitiesCard = screen.getByText(/Communities:/i).parentElement;
+    expect(communitiesCard).toHaveTextContent('Communities: 0');
+    expect(communitiesCard).toHaveTextContent('Number of communities trained: 0');
+
+    const mamaMbogaCard = screen.getByText(/Mama Mboga:/i).parentElement;
+    expect(mamaMbogaCard).toHaveTextContent('Mama Mboga: 0');
+    expect(mamaMbogaCard).toHaveTextContent('Number of mama mboga trained: 0');
+
+    expect(screen.getByText('0%')).toBeInTheDocument(); 
+
+    consoleErrorSpy.mockRestore();
+  });
 });
-
-

@@ -5,33 +5,39 @@ export const fetchOrders = async ({
   page = 1,
   limit = 10,
   groupByDateAndCommunity = true,
-  communities = {},
+  communities = {},  
   customers = {},
   products = {},
 } = {}) => {
   try {
     const response = await authenticatedFetch(`${process.env.REACT_APP_BASE_URL}orders/`);
     if (!response.ok) throw new Error(`Something went wrong: ${response.status}`);
+
     const data = await response.json();
     if (!Array.isArray(data)) throw new Error('API response is not an array');
+    console.log('Communities keys:', Object.keys(communities));
+    console.log('Communities entries:', Object.entries(communities));
+    console.log('Sample order community id:', data.length > 0 ? data[0].community : 'no data');
+
     let orders;
+
     if (groupByDateAndCommunity) {
       const groupedOrders = data.reduce((acc, order) => {
-        const communityName = communities[order.community] || 'Unknown Community';
+        const communityIdStr = String(order.community);
+        const communityName = communities[communityIdStr] || 'Unknown Community';
         const key = `${order.order_date}_${communityName}`;
         const quantity = parseInt(order.quantity, 10) || 1;
-        const productName = products[order.product] || 'Unknown Product';
+        const productName = products[String(order.product)] || 'Unknown Product';
+  console.log('Order community ID:', order.community, 'Lookup name:', communities[communityIdStr]);
         if (!acc[key]) {
           acc[key] = {
             orderIds: [order.order_id],
             mamamboga: order.mamamboga,
             community: { name: communityName, community_id: order.community },
-            products: [
-              `${productName} x${quantity}`
-            ],
+            products: [`${productName} x${quantity}`],
             total_price: parseFloat(order.total_price || 0),
             order_date: order.order_date,
-            location: (customers[order.mamamboga]?.address) || 'No location',
+            location: customers[order.mamamboga]?.address || 'No location',
           };
         } else {
           acc[key].orderIds.push(order.order_id);
@@ -40,6 +46,7 @@ export const fetchOrders = async ({
         }
         return acc;
       }, {});
+
       orders = Object.values(groupedOrders).map(group => ({
         id: group.orderIds[0],
         mamamboga: group.mamamboga,
@@ -60,12 +67,12 @@ export const fetchOrders = async ({
     } else {
       orders = data.map(order => {
         const quantity = parseInt(order.quantity, 10) || 1;
-        const productName = products[order.product] || 'Unknown Product';
+        const productName = products[String(order.product)] || 'Unknown Product';
         return {
           id: order.order_id,
           mamamboga: order.mamamboga,
-          community: communities[order.community] || 'Unknown Community',
-          location: (customers[order.mamamboga]?.address) || 'No location',
+          community: communities[String(order.community)] || 'Unknown Community',
+          location: customers[order.mamamboga]?.address || 'No location',
           total: `${parseFloat(order.total_price || 0).toFixed(2)} KSH`,
           date: order.order_date
             ? new Date(order.order_date).toLocaleDateString('en-US', {
@@ -81,9 +88,11 @@ export const fetchOrders = async ({
         };
       });
     }
+
     if (groupId) {
       orders = orders.filter(order => order.groupId === parseInt(groupId, 10));
     }
+
     if (searchQuery) {
       const lowerQuery = searchQuery.toLowerCase().trim();
       orders = orders.filter(order =>
@@ -94,8 +103,10 @@ export const fetchOrders = async ({
         || (order.community || '').toLowerCase().includes(lowerQuery)
       );
     }
+
     const start = (page - 1) * limit;
     const paginatedOrders = orders.slice(start, start + limit);
+
     return { paginatedOrders, total: orders.length };
   } catch (error) {
     console.error('Fetch orders error:', error);
