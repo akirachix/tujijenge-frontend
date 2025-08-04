@@ -53,9 +53,6 @@ export const useReferenceData = () => {
          communities: communitiesMap,
          products: productsMap,
        });
-       console.log('Fetched customers keys:', Object.keys(customersMap));
-       console.log('Fetched communities keys:', Object.keys(communitiesMap));
-       console.log('Fetched products keys:', Object.keys(productsMap));
      } catch (err) {
        setError(err.message || err.toString());
      } finally {
