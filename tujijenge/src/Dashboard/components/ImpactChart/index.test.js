@@ -4,18 +4,10 @@ import ImpactChart from './index';
 import * as dataUtils from '../../../utils/dataUtils';
 import { BrowserRouter } from 'react-router-dom';
 
-beforeAll(() => {
-  jest.spyOn(console, 'warn').mockImplementation((message) => {
-    if (
-      typeof message === 'string' &&
-      (message.includes('React Router Future Flag') ||
-        message.includes('No authentication token found for API'))
-    ) {
-      return;
-    }
-    console.warn(message);
-  });
-});
+
+jest.mock('../../../hooks/useFetchUsers');
+
+const mockedUseFetchUsers = require('../../../hooks/useFetchUsers').default;
 
 const mockedNavigate = jest.fn();
 
@@ -43,7 +35,7 @@ jest.mock('react-chartjs-2', () => ({
 }));
 
 describe('ImpactChart', () => {
-  const baseUrl = 'https://fakeapi.com';
+  const baseUrl = 'https://fakeapi.com/';
   const fakeMamaMbogas = [
     { id: 1, certified_status: 'certified' },
     { id: 2, certified_status: 'not_certified' },
@@ -59,15 +51,17 @@ describe('ImpactChart', () => {
 
   beforeEach(() => {
     process.env.REACT_APP_BASE_URL = baseUrl;
-    process.env.REACT_APP_TOKEN = 'fake_token';
+   
+    localStorage.setItem('authToken', 'fake_token');
+
+  
+    mockedUseFetchUsers.mockReturnValue({
+      users: fakeMamaMbogas,
+      loading: false,
+      error: null,
+    });
 
     global.fetch = jest.fn((url) => {
-      if (url.endsWith('/users')) {
-        return Promise.resolve({
-          ok: true,
-          json: () => Promise.resolve(fakeMamaMbogas),
-        });
-      }
       if (url.endsWith('/community')) {
         return Promise.resolve({
           ok: true,
@@ -110,8 +104,8 @@ describe('ImpactChart', () => {
 
   afterEach(() => {
     jest.clearAllMocks();
+    localStorage.clear();
     delete process.env.REACT_APP_BASE_URL;
-    delete process.env.REACT_APP_TOKEN;
   });
 
   test('renders stats and chart based on fetched data', async () => {
@@ -121,34 +115,32 @@ describe('ImpactChart', () => {
       </BrowserRouter>
     );
 
- 
     await waitFor(() => {
-      // Communities card
+     
       const communitiesCard = screen.getByText(/Communities:/i).parentElement;
-      expect(communitiesCard).toHaveTextContent('2'); // total communities
-      expect(communitiesCard).toHaveTextContent('1'); // trained communities
+      expect(communitiesCard).toHaveTextContent('2'); 
+      expect(communitiesCard).toHaveTextContent('1'); 
 
-      // Mama Mboga card
+   
       const mamaMbogaCard = screen.getByText(/Mama Mboga:/i).parentElement;
-      expect(mamaMbogaCard).toHaveTextContent('2'); 
-      expect(mamaMbogaCard).toHaveTextContent('1'); 
+      expect(mamaMbogaCard).toHaveTextContent('2');
+      expect(mamaMbogaCard).toHaveTextContent('1');
 
-      // Impact chart title
+   
       expect(screen.getByText(/Impact/i)).toBeInTheDocument();
 
-      // Doughnut chart with correct data
+     
       const doughnutChart = screen.getByTestId('doughnut-chart');
       expect(doughnutChart).toBeInTheDocument();
-      expect(doughnutChart).toHaveTextContent('"data":[1,1]'); 
-      
+      expect(doughnutChart).toHaveTextContent('"data":[1,1]');
 
-      // Percentage text check
+     
       expect(screen.getByText('50%')).toBeInTheDocument();
     });
   });
 
   test('handles missing token by skipping fetch', () => {
-    delete process.env.REACT_APP_TOKEN;
+    localStorage.removeItem('authToken');
     const consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
 
     render(
@@ -157,7 +149,7 @@ describe('ImpactChart', () => {
       </BrowserRouter>
     );
 
-    expect(consoleWarnSpy).toHaveBeenCalledWith('No authentication token found for API. Skipping fetch.');
+    expect(consoleWarnSpy).toHaveBeenCalledWith('No auth token found for API. Skipping fetch.');
 
     consoleWarnSpy.mockRestore();
   });
@@ -176,5 +168,3 @@ describe('ImpactChart', () => {
     expect(mockedNavigate).toHaveBeenCalledWith('/calendar');
   });
 });
-
-
