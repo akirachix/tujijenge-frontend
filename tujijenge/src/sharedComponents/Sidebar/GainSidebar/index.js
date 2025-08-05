@@ -59,7 +59,7 @@ export default function Sidebar() {
       
       {showLogoutModal && (
         <div className="modal-overlay">
-          <div className="modal">
+          <div className="logout-modal">
             <h3>Confirm Logout</h3>
             <p>Are you sure you want to logout?</p>
             <div className="modal-actions">
