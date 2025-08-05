@@ -44,19 +44,18 @@
   cursor: not-allowed;
 }
 
-/* Delivery status styling */
 .delivery-status {
   display: flex;
   align-items: center;
-  padding: 10px 16px;
+  padding: 10px ;
   border-radius: 8px;
   font-weight: 600;
   font-size: 14px;
-  min-width: 150px;
+  min-width: 100px;
   justify-content: center;
   background-color: var(--border-light);
   color: #2e7d32;
-  height: 40px;
+  height: 30px;
 }
 
 .status-icon {
@@ -138,3 +137,24 @@
 .icon:hover {
   transform: scale(1.1);
 }
+ @media (width: 1024px) {
+.view-btn, .mark-btn {
+  font-size: 12px;
+}
+.delivery-status {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 12px;
+  min-width: 80px;
+  justify-content: center;
+  background-color: var(--border-light);
+  color: #2e7d32;
+  height: 20px;
+}
+
+ }
+
+ 
