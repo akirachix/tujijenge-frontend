@@ -139,6 +139,32 @@
  }
  
  
+
+
+ @media (width: 1366px){
+   .additional{
+       font-size: 24px;
+       padding: 5px 18px;
+   }
+}
+
+@media (width: 1366px){
+   .secondary-additional{
+       font-size: 24px;
+       padding: 5px 18px;
+   }
+}
+
+@media (width: 1366px){
+   .compact-secondary{
+       font-size: 15px;
+       padding: 6px 13px;
+   }
+}
+
+
+
+
  @media (min-width: 2304px){
     .additional{
         font-size: 24px;

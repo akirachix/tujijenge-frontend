@@ -47,7 +47,8 @@ const cancelLogout = () => {
           </div>
         </Link>
         <Link to="/RecentOrders" style={{textDecoration:'none'}}>
-          <div className={`menu-icon${pathname === '/RecentOrders' ? ' active' : ''}`}>
+        <div className={`menu-icon${
+            (pathname === '/RecentOrders' || pathname.startsWith('/group-orders')) ? ' active' : ''}`}>
             <BsCartCheckFill />
             <span>Orders</span>
           </div>
