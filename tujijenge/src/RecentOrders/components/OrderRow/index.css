@@ -73,7 +73,6 @@ html, body {
 
  }
  .cell {
-
   padding: 0 10px;
   display: flex;
   align-items: center;
@@ -198,4 +197,8 @@ html, body {
   }
  }
  
- 
+ @media (width:1024px){
+  .order-row{
+    font-size: 13px;
+  }
+ }
